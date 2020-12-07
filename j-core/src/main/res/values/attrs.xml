@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TitleBar">
+        <!--左边文本-->
+        <attr name="leftText" format="string"/>
+        <attr name="leftTextColor" format="color"/>
+        <attr name="leftTextSize" format="dimension"/>
+        <attr name="leftTextDrawable" format="reference"/>
+        <attr name="leftTextDrawableSize" format="dimension"/>
+
+        <!--左边图片-->
+        <attr name="leftImageSrc" format="reference"/>
+        <attr name="leftImagePadding" format="dimension"/>
+
+        <!--中间标题-->
+        <attr name="title" format="string"/>
+        <attr name="titleSize" format="dimension"/>
+        <attr name="titleColor" format="color"/>
+        <attr name="titleAlignLeft" format="boolean"/>
+
+        <!--右边文字-->
+        <attr name="rightText" format="string"/>
+        <attr name="rightTextColor" format="color"/>
+        <attr name="rightTextSize" format="dimension"/>
+
+        <!--右边图片-->
+        <attr name="rightImageSrc" format="reference"/>
+        <attr name="rightImagePadding" format="dimension"/>
+
+        <!--右边图片2-->
+        <attr name="rightImage2Src" format="reference"/>
+        <attr name="rightImage2Padding" format="dimension"/>
+
+        <!--右边图片3-->
+        <attr name="rightImage3Src" format="reference"/>
+        <attr name="rightImage3Padding" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="SizedTextView">
+        <attr name="drawableWidth" format="dimension"/>
+        <attr name="drawableHeight" format="dimension"/>
+        <attr name="drawableSize" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="SuperLayout">
+        <attr name="sl_leftImageSrc" format="reference"/>
+        <attr name="sl_leftImageSize" format="dimension"/>
+
+        <attr name="sl_leftText" format="string"/>
+        <attr name="sl_leftTextColor" format="color"/>
+        <attr name="sl_leftTextSize" format="dimension"/>
+        <attr name="sl_leftTextMarginLeft" format="dimension"/>
+        <attr name="sl_leftTextMarginTop" format="dimension"/>
+        <attr name="sl_leftTextMarginRight" format="dimension"/>
+        <attr name="sl_leftTextMarginBottom" format="dimension"/>
+
+        <attr name="sl_leftSubText" format="string"/>
+        <attr name="sl_leftSubTextColor" format="color"/>
+        <attr name="sl_leftSubTextSize" format="dimension"/>
+
+        <attr name="sl_centerText" format="string"/>
+        <attr name="sl_centerTextColor" format="color"/>
+        <attr name="sl_centerTextBg" format="reference"/>
+        <attr name="sl_centerTextSize" format="dimension"/>
+
+        <attr name="sl_rightText" format="string"/>
+        <attr name="sl_rightTextColor" format="color"/>
+        <attr name="sl_rightTextSize" format="dimension"/>
+        <attr name="sl_rightTextBg" format="reference"/>
+        <attr name="sl_rightTextBgColor" format="color"/>
+        <attr name="sl_rightTextWidth" format="dimension"/>
+        <attr name="sl_rightTextHeight" format="dimension"/>
+
+        <attr name="sl_rightImageSrc" format="reference"/>
+        <attr name="sl_rightImageMarginLeft" format="dimension"/>
+        <attr name="sl_rightImageSize" format="dimension"/>
+
+        <attr name="sl_rightImage2Src" format="reference"/>
+        <attr name="sl_rightImage2MarginLeft" format="dimension"/>
+        <attr name="sl_rightImage2Size" format="dimension"/>
+
+        <attr name="sl_solid" format="color"/>
+        <attr name="sl_corner" format="dimension"/>
+        <attr name="sl_stroke" format="color"/>
+        <attr name="sl_strokeWidth" format="dimension"/>
+
+        <attr name="sl_topLineColor" format="color"/>
+        <attr name="sl_bottomLineColor" format="color"/>
+        <attr name="sl_lineSize" format="dimension"/>
+
+        <attr name="sl_enableRipple" format="boolean"/>
+        <attr name="sl_rippleColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeFrameLayout">
+        <attr name="sfl_solid" format="color"/>
+        <attr name="sfl_corner" format="dimension"/>
+        <attr name="sfl_stroke" format="color"/>
+        <attr name="sfl_strokeWidth" format="dimension"/>
+
+        <attr name="sfl_topLineColor" format="color"/>
+        <attr name="sfl_bottomLineColor" format="color"/>
+        <attr name="sfl_lineSize" format="dimension"/>
+
+        <attr name="sfl_enableRipple" format="boolean"/>
+        <attr name="sfl_rippleColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeLinearLayout">
+        <attr name="sll_solid" format="color"/>
+        <attr name="sll_corner" format="dimension"/>
+        <attr name="sll_stroke" format="color"/>
+        <attr name="sll_strokeWidth" format="dimension"/>
+
+        <attr name="sll_topLineColor" format="color"/>
+        <attr name="sll_bottomLineColor" format="color"/>
+        <attr name="sll_lineSize" format="dimension"/>
+
+        <attr name="sll_enableRipple" format="boolean"/>
+        <attr name="sll_rippleColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeRelativeLayout">
+        <attr name="srl_solid" format="color"/>
+        <attr name="srl_corner" format="dimension"/>
+        <attr name="srl_stroke" format="color"/>
+        <attr name="srl_strokeWidth" format="dimension"/>
+
+        <attr name="srl_topLineColor" format="color"/>
+        <attr name="srl_bottomLineColor" format="color"/>
+        <attr name="srl_lineSize" format="dimension"/>
+
+        <attr name="srl_enableRipple" format="boolean"/>
+        <attr name="srl_rippleColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeTextView">
+        <attr name="stv_drawableWidth" format="dimension"/>
+        <attr name="stv_drawableHeight" format="dimension"/>
+        <attr name="stv_drawableSize" format="dimension"/>
+
+        <attr name="stv_solid" format="color"/>
+        <attr name="stv_corner" format="dimension"/>
+        <attr name="stv_stroke" format="color"/>
+        <attr name="stv_strokeWidth" format="dimension"/>
+
+        <attr name="stv_enableRipple" format="boolean"/>
+        <attr name="stv_rippleColor" format="color"/>
+
+        <attr name="stv_topLineColor" format="color"/>
+        <attr name="stv_bottomLineColor" format="color"/>
+        <attr name="stv_lineSize" format="dimension"/>
+    </declare-styleable>
+
+
+    <!--RatioImageView-->
+    <declare-styleable name="RatioImageView">
+        <attr name="riv_ratio" format="float"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="TabBar">
+        <attr name="tb_iconSize" format="dimension"/>
+        <attr name="tb_textSize" format="dimension"/>
+        <attr name="tb_iconSpace" format="dimension"/>
+        <attr name="tb_selectedColor" format="color"/>
+        <attr name="tb_normalColor" format="color"/>
+    </declare-styleable>
+
+
+
+    <declare-styleable name="SuperEditText">
+        <attr name="set_editTextHeight" format="dimension" />
+        <attr name="set_titleString" format="string" />
+        <!--底部edit hint 或者text-->
+        <attr name="set_bottomString" format="string" />
+        <!-- 底部是文字/输入框 true ->文字       -->
+        <attr name="set_isBottomText" format="boolean" />
+        <attr name="set_isPassword" format="boolean" />
+    </declare-styleable>
+
+
+    <attr name="icon_base_network_error_view" format="reference"/>
+    <attr name="icon_base_network_no_data_view" format="reference"/>
+    <attr name="icon_base_title_bar_arrow_black" format="reference"/>
+    <attr name="icon_base_title_bar_arrow_white" format="reference"/>
+</resources>
