@@ -29,66 +29,61 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // x
-    compileOnly rootProject.ext.dependencies["x-core-ktx"]
-    compileOnly rootProject.ext.dependencies["x-appcompat"]
-    compileOnly rootProject.ext.dependencies["x-design"]
-    compileOnly rootProject.ext.dependencies["x-constraint-layout"]
-    compileOnly rootProject.ext.dependencies["x-cardview"]
-    compileOnly rootProject.ext.dependencies["x-recyclerview"]
-    compileOnly rootProject.ext.dependencies["x-lifecycle-livedata-ktx"]
-    compileOnly rootProject.ext.dependencies["x-lifecycle-viewmodel-ktx"]
-    compileOnly rootProject.ext.dependencies["x-lifecycle-extensions"]
+    compileOnly "androidx.core:core-ktx:1.3.2"
+    compileOnly "androidx.appcompat:appcompat:1.2.0"
+    compileOnly 'androidx.constraintlayout:constraintlayout:2.0.4'
+    compileOnly 'androidx.cardview:cardview:1.0.0'
+    compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
 
     // kt
-   compileOnly rootProject.ext.dependencies["kt-coroutines-android"]
-   compileOnly rootProject.ext.dependencies["kt-coroutines-core"]
-   compileOnly rootProject.ext.dependencies["kt-stdlib"]
+    compileOnly "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1"
+    compileOnly "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.1"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:1.3.41"
 
     //事件
-    compileOnly rootProject.ext.dependencies["live-event-bus-x"]
+    compileOnly "com.jeremyliao:live-event-bus-x:1.5.7"
 
     //图片加载
-    compileOnly rootProject.ext.dependencies["glide"]
+    compileOnly "com.github.bumptech.glide:glide:4.6.1"
 
     //butterknife
-    compileOnly rootProject.ext.dependencies["butterknife"]
-    kapt rootProject.ext.dependencies["butterknife-compiler"]
+    compileOnly "com.jakewharton:butterknife:10.1.0"
+    kapt "com.jakewharton:butterknife-compiler:10.1.0"
 
     //view
-    compileOnly rootProject.ext.dependencies["pickerview"]
-    compileOnly rootProject.ext.dependencies["photoview"]
-    compileOnly rootProject.ext.dependencies["lottie"]
-    compileOnly rootProject.ext.dependencies["FlycoTabLayout"]
-    compileOnly rootProject.ext.dependencies["Smarttablayout"]
-    compileOnly rootProject.ext.dependencies["Smarttablayout-utils"]
-    compileOnly rootProject.ext.dependencies["banner"]
-    compileOnly rootProject.ext.dependencies["baseRvAdapter"]
-    compileOnly rootProject.ext.dependencies["easyadapter"]
-    compileOnly rootProject.ext.dependencies["xpopup"]
-    compileOnly rootProject.ext.dependencies["roundedimageview"]
-    compileOnly rootProject.ext.dependencies["XUI"]
-    compileOnly rootProject.ext.dependencies["calendarview"]
-    compileOnly rootProject.ext.dependencies["SmartRefreshLayout"]
-    compileOnly rootProject.ext.dependencies["SmartRefreshHeader"]
-    compileOnly rootProject.ext.dependencies["MultiStateView"]
+    compileOnly "com.contrarywind:Android-PickerView:3.2.5"
+    compileOnly "com.github.chrisbanes.photoview:library:1.2.3"
+    compileOnly "com.daimajia.numberprogressbar:library:1.2@aar"
+    compileOnly "com.nineoldandroids:library:2.4.0"
+    compileOnly "com.github.markomilos:paginate:0.5.1"
+    compileOnly "com.alibaba.android:vlayout:1.1.0@aar"
+    compileOnly "com.airbnb.android:lottie:2.5.4"
+    compileOnly "com.flyco.tablayout:FlycoTabLayout_Lib:2.0.8@aar"
+    compileOnly "com.ogaclejapan.smarttablayout:library:1.6.1@aar"
+    compileOnly "com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar"
+    compileOnly "com.bigkoo:convenientbanner:2.0.5"
+    compileOnly "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+    compileOnly "com.lxj:easyadapter:1.1.1"
+    compileOnly "me.everything:overscroll-decor-android:1.0.4"
+    compileOnly "com.shuyu:GSYVideoPlayer:2.1.3"
 
     //http
-   compileOnly rootProject.ext.dependencies["gson"]
-   compileOnly rootProject.ext.dependencies["okhttp"]
-   compileOnly rootProject.ext.dependencies["progressmanager"]
+    compileOnly "com.google.code.gson:gson:2.8.5"
+    compileOnly "com.squareup.okhttp3:okhttp:3.12.1"
+    compileOnly "me.jessyan:progressmanager:1.5.0"
 
 
     //mmkv
-    compileOnly rootProject.ext.dependencies["mmkv"]
+    compileOnly 'com.tencent:mmkv:1.2.4'
 
     //fragment
-   compileOnly rootProject.ext.dependencies["fragmentation"]
-   compileOnly rootProject.ext.dependencies["fragmentation-swipeback"]
-   compileOnly rootProject.ext.dependencies["eventbus-activity-scope"]
+    compileOnly "me.yokeyword:fragmentationx:1.0.1"
+    compileOnly "me.yokeyword:fragmentationx-swipeback:1.0.1"
+    compileOnly "me.yokeyword:eventbus-activity-scope:1.1.0"
 
     //tool
-    compileOnly rootProject.ext.dependencies["utilcode"]
-    compileOnly rootProject.ext.dependencies["xxpermissions"]
+    compileOnly "com.blankj:utilcode:1.25.5"
+    compileOnly "com.hjq:xxpermissions:5.3"
 
 
 }
