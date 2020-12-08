@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.jiangpana'
+group = 'com.github.jiangpana'
 
 
 android {
@@ -27,100 +27,68 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    testImplementation rootProject.ext.dependencies["junit"]
-    androidTestImplementation rootProject.ext.dependencies["x-junit"]
-    androidTestImplementation rootProject.ext.dependencies["x-espresso-core"]
 
     // x
-    api rootProject.ext.dependencies["x-core-ktx"]
-    api rootProject.ext.dependencies["x-appcompat"]
-    api rootProject.ext.dependencies["x-design"]
-    api rootProject.ext.dependencies["x-constraint-layout"]
-    api rootProject.ext.dependencies["x-cardview"]
-    api rootProject.ext.dependencies["x-recyclerview"]
-    api rootProject.ext.dependencies["x-lifecycle-livedata-ktx"]
-    api rootProject.ext.dependencies["x-lifecycle-viewmodel-ktx"]
-    api rootProject.ext.dependencies["x-lifecycle-extensions"]
-    api rootProject.ext.dependencies["x-test-runner"]
-    api rootProject.ext.dependencies["x-multidex"]
-    api rootProject.ext.dependencies["x-room"]
-    kapt rootProject.ext.dependencies["x-room-compiler"]
-    api rootProject.ext.dependencies["x-room-support-rxjava2"]
-    api rootProject.ext.dependencies["x-paging"]
-    api rootProject.ext.dependencies["x-work"]
+    compileOnly rootProject.ext.dependencies["x-core-ktx"]
+    compileOnly rootProject.ext.dependencies["x-appcompat"]
+    compileOnly rootProject.ext.dependencies["x-design"]
+    compileOnly rootProject.ext.dependencies["x-constraint-layout"]
+    compileOnly rootProject.ext.dependencies["x-cardview"]
+    compileOnly rootProject.ext.dependencies["x-recyclerview"]
+    compileOnly rootProject.ext.dependencies["x-lifecycle-livedata-ktx"]
+    compileOnly rootProject.ext.dependencies["x-lifecycle-viewmodel-ktx"]
+    compileOnly rootProject.ext.dependencies["x-lifecycle-extensions"]
 
     // kt
-    api rootProject.ext.dependencies["kt-coroutines-android"]
-    api rootProject.ext.dependencies["kt-coroutines-core"]
-    api rootProject.ext.dependencies["kt-stdlib"]
+   compileOnly rootProject.ext.dependencies["kt-coroutines-android"]
+   compileOnly rootProject.ext.dependencies["kt-coroutines-core"]
+   compileOnly rootProject.ext.dependencies["kt-stdlib"]
 
     //事件
-    api rootProject.ext.dependencies["live-event-bus-x"]
+    compileOnly rootProject.ext.dependencies["live-event-bus-x"]
 
     //图片加载
-    api rootProject.ext.dependencies["glide"]
+    compileOnly rootProject.ext.dependencies["glide"]
 
     //butterknife
-    api rootProject.ext.dependencies["butterknife"]
+    compileOnly rootProject.ext.dependencies["butterknife"]
     kapt rootProject.ext.dependencies["butterknife-compiler"]
 
     //view
-    api rootProject.ext.dependencies["pickerview"]
-    api rootProject.ext.dependencies["photoview"]
-    api rootProject.ext.dependencies["numberprogressbar"]
-    api rootProject.ext.dependencies["nineoldandroids"]
-    api rootProject.ext.dependencies["paginate"]
-    api rootProject.ext.dependencies["vlayout"]
-    api rootProject.ext.dependencies["lottie"]
-    api rootProject.ext.dependencies["FlycoTabLayout"]
-    api rootProject.ext.dependencies["Smarttablayout"]
-    api rootProject.ext.dependencies["Smarttablayout-utils"]
-    api rootProject.ext.dependencies["banner"]
-    api rootProject.ext.dependencies["baseRvAdapter"]
-    api rootProject.ext.dependencies["easyadapter"]
-    api rootProject.ext.dependencies["ios-scroll"]
-    api rootProject.ext.dependencies["GSYVideoPlayer"]
-    api rootProject.ext.dependencies["xpopup"]
-    api rootProject.ext.dependencies["roundedimageview"]
-    api rootProject.ext.dependencies["Android-PickerView"]
-    api rootProject.ext.dependencies["PictureSelector"]
-    api rootProject.ext.dependencies["youthBanner"]
-    api rootProject.ext.dependencies["UiStatus"]
-    api rootProject.ext.dependencies["XUI"]
-    api rootProject.ext.dependencies["calendarview"]
-    api rootProject.ext.dependencies["SmartRefreshLayout"]
-    api rootProject.ext.dependencies["SmartRefreshHeader"]
-    api rootProject.ext.dependencies["MultiStateView"]
-    api rootProject.ext.dependencies["CityPicker"]
+    compileOnly rootProject.ext.dependencies["pickerview"]
+    compileOnly rootProject.ext.dependencies["photoview"]
+    compileOnly rootProject.ext.dependencies["lottie"]
+    compileOnly rootProject.ext.dependencies["FlycoTabLayout"]
+    compileOnly rootProject.ext.dependencies["Smarttablayout"]
+    compileOnly rootProject.ext.dependencies["Smarttablayout-utils"]
+    compileOnly rootProject.ext.dependencies["banner"]
+    compileOnly rootProject.ext.dependencies["baseRvAdapter"]
+    compileOnly rootProject.ext.dependencies["easyadapter"]
+    compileOnly rootProject.ext.dependencies["xpopup"]
+    compileOnly rootProject.ext.dependencies["roundedimageview"]
+    compileOnly rootProject.ext.dependencies["XUI"]
+    compileOnly rootProject.ext.dependencies["calendarview"]
+    compileOnly rootProject.ext.dependencies["SmartRefreshLayout"]
+    compileOnly rootProject.ext.dependencies["SmartRefreshHeader"]
+    compileOnly rootProject.ext.dependencies["MultiStateView"]
 
     //http
-    api rootProject.ext.dependencies["gson"]
-    api rootProject.ext.dependencies["okhttp"]
-    api rootProject.ext.dependencies["progressmanager"]
-
+   compileOnly rootProject.ext.dependencies["gson"]
+   compileOnly rootProject.ext.dependencies["okhttp"]
+   compileOnly rootProject.ext.dependencies["progressmanager"]
 
 
     //mmkv
-    api rootProject.ext.dependencies["mmkv"]
+    compileOnly rootProject.ext.dependencies["mmkv"]
 
     //fragment
-    api rootProject.ext.dependencies["fragmentation"]
-    api rootProject.ext.dependencies["fragmentation-swipeback"]
-    api rootProject.ext.dependencies["eventbus-activity-scope"]
+   compileOnly rootProject.ext.dependencies["fragmentation"]
+   compileOnly rootProject.ext.dependencies["fragmentation-swipeback"]
+   compileOnly rootProject.ext.dependencies["eventbus-activity-scope"]
 
-    //agentweb
-    api rootProject.ext.dependencies["agentweb"]
-
-    //优化
-    api rootProject.ext.dependencies["blockcanary"]
-    api rootProject.ext.dependencies["blockcanary-no-op"]
-
-    //tools
-//    api rootProject.ext.dependencies["arouter"]
-//    kapt rootProject.ext.dependencies["arouter-compiler"]
-//    api rootProject.ext.dependencies["arouter_annotation"]
-    api rootProject.ext.dependencies["utilcode"]
-    api rootProject.ext.dependencies["xxpermissions"]
+    //tool
+    compileOnly rootProject.ext.dependencies["utilcode"]
+    compileOnly rootProject.ext.dependencies["xxpermissions"]
 
 
 }
