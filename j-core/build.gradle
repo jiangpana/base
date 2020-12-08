@@ -3,16 +3,19 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
-group = 'com.github.jiangpana'
+group='com.github.jiangpana'
 
 
 android {
     compileSdkVersion 30
+    buildToolsVersion "30.0.2"
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -32,6 +35,9 @@ dependencies {
     compileOnly 'androidx.constraintlayout:constraintlayout:2.0.4'
     compileOnly 'androidx.cardview:cardview:1.0.0'
     compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
+    compileOnly 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha02'
+    compileOnly "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha03"
+    compileOnly "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha03"
 
     // kt
     compileOnly "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1"
@@ -49,12 +55,12 @@ dependencies {
     kapt "com.jakewharton:butterknife-compiler:10.1.0"
 
     //view
+    compileOnly "com.github.xuexiangjys:XUI:1.0.8"
+    compileOnly "com.lxj:xpopup:2.1.17"
     compileOnly "com.contrarywind:Android-PickerView:3.2.5"
-    compileOnly "com.github.chrisbanes.photoview:library:1.2.3"
-    compileOnly "com.daimajia.numberprogressbar:library:1.2@aar"
+    compileOnly "com.github.LuckSiege.PictureSelector:picture_library:v2.2.3"
     compileOnly "com.nineoldandroids:library:2.4.0"
     compileOnly "com.github.markomilos:paginate:0.5.1"
-    compileOnly "com.alibaba.android:vlayout:1.1.0@aar"
     compileOnly "com.airbnb.android:lottie:2.5.4"
     compileOnly "com.flyco.tablayout:FlycoTabLayout_Lib:2.0.8@aar"
     compileOnly "com.ogaclejapan.smarttablayout:library:1.6.1@aar"
@@ -62,7 +68,6 @@ dependencies {
     compileOnly "com.bigkoo:convenientbanner:2.0.5"
     compileOnly "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
     compileOnly "com.lxj:easyadapter:1.1.1"
-    compileOnly "me.everything:overscroll-decor-android:1.0.4"
     compileOnly "com.shuyu:GSYVideoPlayer:2.1.3"
 
     //http
