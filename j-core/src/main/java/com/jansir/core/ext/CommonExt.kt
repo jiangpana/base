@@ -31,6 +31,7 @@ import com.jansir.core.JApplication
 import com.jansir.core.JConfig.context
 import com.jansir.core.util.AES256Util
 import com.jansir.core.util.NetworkUtils
+import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
@@ -522,3 +523,21 @@ fun Context.getAssetsText256AesDecrypt(name: String): String {
     return "";
 }
 
+fun openMMkv(name: String): MMKV {
+    if(name.isEmpty()){
+        return MMKV.defaultMMKV()
+    }else{
+        return  MMKV.mmkvWithID(name)
+    }
+}
+fun String.putMMkvValue(name:String="", value : Any) {
+    when (value) {
+        is String -> openMMkv(name).encode(this, value)
+        is Int -> openMMkv(name).encode(this, value)
+        is Float -> openMMkv(name).encode(this, value)
+        is Double -> openMMkv(name).encode(this, value)
+        is ByteArray -> openMMkv(name).encode(this, value)
+        is Parcelable -> openMMkv(name).encode(this, value)
+    }
+
+}
