@@ -524,20 +524,40 @@ fun Context.getAssetsText256AesDecrypt(name: String): String {
 }
 
 fun openMMkv(name: String): MMKV {
-    if(name.isEmpty()){
+    if (name.isEmpty()) {
         return MMKV.defaultMMKV()
-    }else{
-        return  MMKV.mmkvWithID(name)
+    } else {
+        return MMKV.mmkvWithID(name)
     }
 }
-fun String.putMMkvValue(name:String="", value : Any) {
+
+fun String.putMMkvValue(name: String = "", value: Any) {
     when (value) {
         is String -> openMMkv(name).encode(this, value)
         is Int -> openMMkv(name).encode(this, value)
+        is Boolean -> openMMkv(name).encode(this, value)
         is Float -> openMMkv(name).encode(this, value)
         is Double -> openMMkv(name).encode(this, value)
         is ByteArray -> openMMkv(name).encode(this, value)
         is Parcelable -> openMMkv(name).encode(this, value)
     }
 
+}
+
+inline fun <reified T > String.getMMkvValue(name: String = ""): T? {
+    return when (T::class) {
+        String::class -> openMMkv(name).decodeString(this) as T
+        Int::class -> openMMkv(name).decodeInt(this) as T
+        Boolean::class -> openMMkv(name).decodeBool(this, true) as T
+        Double::class -> openMMkv(name).decodeDouble(this) as T
+        Long::class -> openMMkv(name).decodeLong(this) as T
+        Set::class -> openMMkv(name).decodeStringSet(this) as T
+        ByteArray::class -> openMMkv(name).decodeBytes(this) as T
+        else -> null
+    }
+
+}
+
+inline fun <reified T :Parcelable> String.getMMkvValueParcelable(name: String = ""): T? {
+    return   openMMkv(name).decodeParcelable(this, T::class.java) as T
 }
