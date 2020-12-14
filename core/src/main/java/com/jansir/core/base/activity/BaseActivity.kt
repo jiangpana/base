@@ -17,7 +17,6 @@ import com.jansir.core.ext.hideKeyboard
 import com.jansir.core.util.RomUtil
 import com.jansir.core.util.StatusBarUtil
 
-import com.xuexiang.xui.utils.ThemeUtils
 import com.xuexiang.xui.widget.actionbar.TitleBar
 import com.xuexiang.xui.widget.statelayout.MultipleStatusView
 import kotlinx.coroutines.*
@@ -34,13 +33,15 @@ abstract class BaseActivity : SupportActivity(), CoroutineScope by MainScope() {
 
 
     // true -> 状态栏黑色图标
-    protected open val isSetStatusBarDarkMode: Boolean
+    protected open val isStatusBarIconDarkMode: Boolean
         get() = true
+
     // true -> 使用基础标题栏
     protected open val isUseBaseTitleBar: Boolean
         get() = true
+
     protected open fun onGetBundle(bundle: Bundle) {}
-    private lateinit var mTitleBar: TitleBar
+    lateinit var mTitleBar: TitleBar
     protected lateinit var mStatusView: MultipleStatusView
     private lateinit var mUnBinder: Unbinder
 
@@ -52,7 +53,7 @@ abstract class BaseActivity : SupportActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         StatusBarUtil.setTranslucentStatus(this)
-        val clazz =this@BaseActivity::class.java
+        val clazz = this@BaseActivity::class.java
         val contentView =
             (View.inflate(this, R.layout.activity_base, null) as ViewGroup).apply {
                 setContentView(this)
@@ -67,14 +68,8 @@ abstract class BaseActivity : SupportActivity(), CoroutineScope by MainScope() {
             mTitleBar = contentView.findViewById<TitleBar>(R.id.mTitleBarBase).apply {
                 visibility = View.VISIBLE
                 setLeftClickListener { finish() }
-                if (isSetStatusBarDarkMode) {
-                    setLeftImageDrawable(ThemeUtils.resolveDrawable(this@BaseActivity,R.attr.icon_base_title_bar_arrow_black))
-                    setTitleColor(resources.getColor(R.color.text_333333))
-                    setBackgroundColor(Color.WHITE)
-                } else {
-                    setLeftImageDrawable(ThemeUtils.resolveDrawable(this@BaseActivity,R.attr.icon_base_title_bar_arrow_white))
-                    setBackgroundColor(Color.BLACK)
-                }
+                setTitleColor(resources.getColor(R.color.text_333333))
+                setBackgroundColor(Color.WHITE)
             }
         }
         mUnBinder = ButterKnife.bind(this)
@@ -207,7 +202,8 @@ abstract class BaseActivity : SupportActivity(), CoroutineScope by MainScope() {
             Log.e("test", "other Exception")
         }
     }
-    protected open fun retry(){
+
+    protected open fun retry() {
     }
 
     abstract fun initView()
@@ -252,7 +248,7 @@ abstract class BaseActivity : SupportActivity(), CoroutineScope by MainScope() {
 
     override fun onResume() {
         super.onResume()
-        if (isSetStatusBarDarkMode) {
+        if (isStatusBarIconDarkMode) {
             StatusBarUtil.setStatusBarDarkTheme(this, true)
         } else {
             StatusBarUtil.setStatusBarDarkTheme(this, false)

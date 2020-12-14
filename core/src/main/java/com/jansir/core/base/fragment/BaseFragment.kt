@@ -8,6 +8,8 @@ import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.jansir.core.R
 import com.jansir.core.base.annotation.BindLayout
+import com.jansir.core.ext.visible
+import com.xuexiang.xui.widget.actionbar.TitleBar
 import com.xuexiang.xui.widget.statelayout.MultipleStatusView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -28,7 +30,11 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
     protected abstract fun initView()
     protected abstract fun initListener()
     private lateinit var unBinder: Unbinder
+    lateinit var mTitleBar: TitleBar
 
+    // true -> 使用基础标题栏
+    protected open val isUseBaseTitleBar: Boolean
+        get() = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,16 +46,20 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val clazz =this@BaseFragment::class.java
+        val clazz = this@BaseFragment::class.java
         return inflater.inflate(
             R.layout.activity_base,
             null
         ).apply {
+            if (isUseBaseTitleBar) {
+                mTitleBar = findViewById<TitleBar>(R.id.mTitleBarBase)
+                mTitleBar.visible()
+            }
             inflater.inflate(
                 if (clazz.isAnnotationPresent(BindLayout::class.java))
                     clazz.getAnnotation(
                         BindLayout::class.java
-                    )?.id ?:layoutId
+                    )?.id ?: layoutId
                 else layoutId,
                 findViewById(R.id.fl_base_container)
             )

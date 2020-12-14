@@ -7,11 +7,17 @@ import com.jansir.core.base.annotation.BindLayout
 
 @BindLayout(R.layout.activity_main)
 class MainActivity : BaseActivity() {
+
     override val isUseBaseTitleBar: Boolean
         get() = true
 
-    override fun initView() {
+    override val isStatusBarIconDarkMode: Boolean
+        get() = true
 
+    override fun initView() {
+     mTitleBar.apply {
+
+     }
     }
 
     override fun initListener() {

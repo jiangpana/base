@@ -35,5 +35,6 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(path: ':core')
+//    implementation 'com.github.jiangpana:base:1.2.0'
 
 }

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:tb_barHeight="65dp"
-        app:tb_leftImageResource="@mipmap/icon_back_white"
+        app:tb_leftImageResource="@mipmap/nav_btn_back"
         app:tb_immersive="true"
         app:tb_actionTextColor="@color/text_333333"
         app:tb_actionTextSize="16sp"
