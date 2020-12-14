@@ -27,8 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.jansir.core.JApplication
-import com.jansir.core.JConfig.context
+import com.jansir.core.ContextHolder
 import com.jansir.core.util.AES256Util
 import com.jansir.core.util.NetworkUtils
 import com.tencent.mmkv.MMKV
@@ -348,7 +347,7 @@ fun Bitmap.saveToAlbum(
             compress(format, quality, FileOutputStream(target))
             //3. notify
             MediaScannerConnection.scanFile(
-                JApplication.sContext, arrayOf(target.absolutePath),
+                ContextHolder.sContext, arrayOf(target.absolutePath),
                 arrayOf("image/$ext")
             ) { path, uri ->
                 runOnUIThread {
@@ -460,10 +459,9 @@ class OnTouchListenerProxy : View.OnTouchListener {
 fun Context.getMetaData(key: String): String {
     try {
         val packageManager =
-            context.packageManager
+            packageManager
         val applicationInfo = packageManager.getApplicationInfo(
-            context
-                .packageName, PackageManager.GET_META_DATA
+                packageName, PackageManager.GET_META_DATA
         )
         return applicationInfo.metaData.getString(key).toString()
     } catch (e: java.lang.Exception) {

@@ -9,7 +9,7 @@ import android.net.wifi.WifiManager;
 
 import androidx.annotation.RequiresPermission;
 
-import com.jansir.core.JApplication;
+import com.jansir.core.ContextHolder;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
@@ -69,7 +69,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_WIFI_STATE)
     public static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) JApplication.sContext.getSystemService(WIFI_SERVICE);
+        WifiManager manager = (WifiManager) ContextHolder.sContext.getSystemService(WIFI_SERVICE);
         if (manager == null) return false;
         return manager.isWifiEnabled();
     }
@@ -84,7 +84,7 @@ public final class NetworkUtils {
     @RequiresPermission(CHANGE_WIFI_STATE)
     public static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) JApplication.sContext.getSystemService(WIFI_SERVICE);
+        WifiManager manager = (WifiManager) ContextHolder.sContext.getSystemService(WIFI_SERVICE);
         if (manager == null) return;
         if (enabled == manager.isWifiEnabled()) return;
         manager.setWifiEnabled(enabled);
@@ -100,7 +100,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isWifiConnected() {
         ConnectivityManager cm =
-                (ConnectivityManager) JApplication.sContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) ContextHolder.sContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null) return false;
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.getType() == ConnectivityManager.TYPE_WIFI;
@@ -110,7 +110,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_NETWORK_STATE)
     private static NetworkInfo getActiveNetworkInfo() {
         ConnectivityManager cm =
-                (ConnectivityManager) JApplication.sContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) ContextHolder.sContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null) return null;
         return cm.getActiveNetworkInfo();
     }

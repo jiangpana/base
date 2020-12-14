@@ -2,6 +2,7 @@ package com.jansir.core.ext
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.jansir.core.ContextHolder
 import com.jansir.core.JConfig
 
 /**
@@ -9,7 +10,7 @@ import com.jansir.core.JConfig
  * Create by dance, at 2018/12/5
  */
 
-fun Any.sp(name: String = JConfig.sharedPrefName) = JConfig.context.getSharedPreferences(name, Context.MODE_PRIVATE)
+fun Any.sp(name: String = JConfig.sharedPrefName) = ContextHolder.sContext.getSharedPreferences(name, Context.MODE_PRIVATE)
 
 /**
  * 批处理

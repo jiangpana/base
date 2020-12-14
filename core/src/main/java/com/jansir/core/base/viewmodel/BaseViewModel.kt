@@ -2,7 +2,7 @@ package com.jansir.core.base.viewmodel
 
 import androidx.lifecycle.*
 import com.google.gson.JsonObject
-import com.jansir.core.JApplication
+import com.jansir.core.ContextHolder
 import com.jansir.core.ext.loge
 import com.jansir.core.ext.toast
 import com.jansir.core.http.*
@@ -142,7 +142,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                     }
                     when (result.statusCode) {
                         in 400..500 -> {
-                            JApplication.sContext.toast(result.message)
+                            ContextHolder.sContext.toast(result.message)
                         }
                     }
                 }
@@ -174,7 +174,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                     }
                     when (result.statusCode) {
                         in 400..500 -> {
-                            JApplication.sContext.toast(result.message)
+                            ContextHolder.sContext.toast(result.message)
                         }
                     }
                 }
@@ -194,7 +194,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
             when (result.statusCode) {
                 in 400..500 -> {
                     mStateLiveData.postValue(DataErrorState)
-                    JApplication.sContext.toast(result.message)
+                    ContextHolder.sContext.toast(result.message)
                 }
                 in 200..300 -> {
                     result.data.let {

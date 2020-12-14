@@ -6,13 +6,9 @@ import android.content.Context
 /**
  * 包名:com.jansir.base
  */
-class JApplication :Application() {
+class ContextHolder {
     companion object{
         lateinit var sContext:Context
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        sContext=applicationContext
-    }
 }

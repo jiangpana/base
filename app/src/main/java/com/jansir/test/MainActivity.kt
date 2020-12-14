@@ -1,11 +1,20 @@
 package com.jansir.test
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
+import com.jansir.core.base.activity.BaseActivity
+import com.jansir.core.base.annotation.BindLayout
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+@BindLayout(R.layout.activity_main)
+class MainActivity : BaseActivity() {
+    override val isUseBaseTitleBar: Boolean
+        get() = true
+
+    override fun initView() {
+
     }
+
+    override fun initListener() {
+    }
+
 }

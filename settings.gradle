@@ -1,3 +1,2 @@
-include ':J-core'
-include ':app'
+include ':app',':core'
 rootProject.name = "base"
