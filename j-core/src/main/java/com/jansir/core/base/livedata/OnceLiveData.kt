@@ -1,4 +1,4 @@
-package com.jansir.core.livedata
+package com.jansir.core.base.livedata
 
 
 import androidx.lifecycle.LifecycleOwner

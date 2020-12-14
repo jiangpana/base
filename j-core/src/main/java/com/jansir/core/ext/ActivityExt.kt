@@ -24,7 +24,7 @@ import com.bumptech.glide.Glide
 import com.jansir.core.base.XStarter
 import com.jansir.core.base.activity.BaseActivity
 import com.jansir.core.base.fragment.BaseFragment
-import com.jansir.core.livedata.LifecycleHandler
+import com.jansir.core.base.livedata.LifecycleHandler
 import com.lxj.xpopup.interfaces.XPopupImageLoader
 import java.io.File
 import java.util.*

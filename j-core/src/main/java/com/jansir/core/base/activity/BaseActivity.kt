@@ -52,13 +52,14 @@ abstract class BaseActivity : SupportActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         StatusBarUtil.setTranslucentStatus(this)
+        val clazz =this@BaseActivity::class.java
         val contentView =
             (View.inflate(this, R.layout.activity_base, null) as ViewGroup).apply {
                 setContentView(this)
                 View.inflate(
-                    this@BaseActivity, if (this@BaseActivity::class.java.isAnnotationPresent(BindLayout::class.java))
-                        this@BaseActivity::class.java.getAnnotation(BindLayout::class.java)?.id
-                            ?: 0 else layoutId, findViewById(R.id.fl_base_container)
+                    this@BaseActivity, if (clazz.isAnnotationPresent(BindLayout::class.java))
+                        clazz.getAnnotation(BindLayout::class.java)?.id
+                            ?: layoutId else layoutId, findViewById(R.id.fl_base_container)
                 )
             }
 

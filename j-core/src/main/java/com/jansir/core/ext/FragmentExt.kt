@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import com.jansir.core.livedata.LifecycleHandler
+import com.jansir.core.base.livedata.LifecycleHandler
 
 
 /**

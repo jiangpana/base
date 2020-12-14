@@ -40,15 +40,16 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val clazz =this@BaseFragment::class.java
         return inflater.inflate(
             R.layout.activity_base,
             null
         ).apply {
             inflater.inflate(
-                if (this@BaseFragment::class.java.isAnnotationPresent(BindLayout::class.java))
-                    this@BaseFragment::class.java.getAnnotation(
+                if (clazz.isAnnotationPresent(BindLayout::class.java))
+                    clazz.getAnnotation(
                         BindLayout::class.java
-                    )?.id!!
+                    )?.id ?:layoutId
                 else layoutId,
                 findViewById(R.id.fl_base_container)
             )
@@ -83,7 +84,7 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
     }
 
 
-    //覆盖此方法获取layout id
+    //覆盖此方法获取布局 id
     protected open val layoutId: Int
         get() = 0
 
