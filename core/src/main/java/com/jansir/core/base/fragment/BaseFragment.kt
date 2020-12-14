@@ -30,7 +30,7 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
     protected abstract fun initView()
     protected abstract fun initListener()
     private lateinit var unBinder: Unbinder
-    lateinit var mTitleBar: TitleBar
+     var mTitleBar: TitleBar?=null
 
     // true -> 使用基础标题栏
     protected open val isUseBaseTitleBar: Boolean
@@ -53,7 +53,7 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
         ).apply {
             if (isUseBaseTitleBar) {
                 mTitleBar = findViewById<TitleBar>(R.id.mTitleBarBase)
-                mTitleBar.visible()
+                mTitleBar?.visible()
             }
             inflater.inflate(
                 if (clazz.isAnnotationPresent(BindLayout::class.java))

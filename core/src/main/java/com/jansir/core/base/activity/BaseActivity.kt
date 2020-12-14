@@ -41,7 +41,7 @@ abstract class BaseActivity : SupportActivity(), CoroutineScope by MainScope() {
         get() = true
 
     protected open fun onGetBundle(bundle: Bundle) {}
-    lateinit var mTitleBar: TitleBar
+    var mTitleBar: TitleBar? = null
     protected lateinit var mStatusView: MultipleStatusView
     private lateinit var mUnBinder: Unbinder
 
@@ -211,7 +211,7 @@ abstract class BaseActivity : SupportActivity(), CoroutineScope by MainScope() {
 
     protected fun getTitleBar() = if (isUseBaseTitleBar) mTitleBar else null
     protected fun setTitleText(@StringRes stringId: Int) {
-        if (isUseBaseTitleBar) mTitleBar.setTitle(stringId)
+        if (isUseBaseTitleBar) mTitleBar?.setTitle(stringId)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

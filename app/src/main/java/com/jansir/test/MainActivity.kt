@@ -1,7 +1,5 @@
 package com.jansir.test
 
-import android.app.Activity
-import android.os.Bundle
 import com.jansir.core.base.activity.BaseActivity
 import com.jansir.core.base.annotation.BindLayout
 
@@ -15,9 +13,7 @@ class MainActivity : BaseActivity() {
         get() = true
 
     override fun initView() {
-     mTitleBar.apply {
 
-     }
     }
 
     override fun initListener() {
