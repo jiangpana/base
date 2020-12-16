@@ -1,4 +1,4 @@
-package com.reachjunction.rvpn.model
+package com.jansir.core.base.viewmodel
 
 import com.google.gson.annotations.SerializedName
 

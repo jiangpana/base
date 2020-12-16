@@ -7,8 +7,6 @@ import com.jansir.core.ext.loge
 import com.jansir.core.ext.toast
 import com.jansir.core.http.*
 
-import com.reachjunction.rvpn.model.BaseResponse
-import com.reachjunction.rvpn.model.BaseResponseList
 import kotlinx.coroutines.*
 import kotlin.coroutines.resume
 

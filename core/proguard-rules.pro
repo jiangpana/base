@@ -159,8 +159,5 @@
   *** rewind();
 }
 
+-keep class com.jansir.core.** {*;}
 
-# keep cell
-#-keep  class com.rj.rjsudoku.game.Cell
-#-keep  class com.rj.rjsudoku.game.hint.WrapperCell
-#-keep  class com.rj.rjsudoku.game.hint.HintEntity
