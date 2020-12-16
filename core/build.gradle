@@ -18,7 +18,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            consumerProguardFiles 'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             aaptOptions.cruncherEnabled = false
             aaptOptions.useNewCruncher = false
@@ -71,13 +72,7 @@ dependencies {
     api "com.lxj:xpopup:2.1.17"
     api "com.contrarywind:Android-PickerView:3.2.5"
     api "com.github.LuckSiege.PictureSelector:picture_library:v2.2.3"
-    api "com.nineoldandroids:library:2.4.0"
-    api "com.github.markomilos:paginate:0.5.1"
     api "com.airbnb.android:lottie:2.5.4"
-    api "com.flyco.tablayout:FlycoTabLayout_Lib:2.0.8@aar"
-    api "com.ogaclejapan.smarttablayout:library:1.6.1@aar"
-    api "com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar"
-    api "com.bigkoo:convenientbanner:2.0.5"
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
     api "com.lxj:easyadapter:1.2.2"
 
@@ -97,7 +92,7 @@ dependencies {
 
     //tool
     api "com.blankj:utilcode:1.25.5"
-    api "com.hjq:xxpermissions:5.3"
+    api "com.hjq:xxpermissions:9.6"
 
 
 }

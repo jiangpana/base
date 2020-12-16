@@ -139,6 +139,27 @@
     public <init>(android.content.Context);
 }
 
+#xui
+-keep class com.xuexiang.xui.widget.edittext.materialedittext.** { *; }
+
+#xpop
+-dontwarn com.lxj.xpopup.widget.**
+-keep class com.lxj.xpopup.widget.**{*;}
+
+#glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
+}
+
+
 # keep cell
 #-keep  class com.rj.rjsudoku.game.Cell
 #-keep  class com.rj.rjsudoku.game.hint.WrapperCell
