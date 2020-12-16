@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
     defaultConfig {
@@ -14,8 +15,8 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-    }
 
+    }
     buildTypes {
         release {
             minifyEnabled true
@@ -30,8 +31,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     packagingOptions {
         exclude 'META-INF/proguard/coroutines.pro'
+    }
+    viewBinding {
+        enabled = true
     }
 }
 
@@ -63,10 +70,6 @@ dependencies {
     //图片加载
     api "com.github.bumptech.glide:glide:4.6.1"
 
-    //butterknife
-    api "com.jakewharton:butterknife:10.1.0"
-    kapt "com.jakewharton:butterknife-compiler:10.1.0"
-
     //view
     api "com.github.xuexiangjys:XUI:1.1.5"
     api "com.lxj:xpopup:2.1.17"
@@ -94,6 +97,7 @@ dependencies {
     api "com.blankj:utilcode:1.25.5"
     api "com.hjq:xxpermissions:9.6"
 
+    api 'com.dylanc:viewbinding-ktx:1.0.0'
 
 }
 

@@ -7,7 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jansir.core.R
 import com.jansir.core.base.viewmodel.BaseListViewModel
-import kotlinx.android.synthetic.main.layout_base_refresh_list.*
+import kotlinx.android.synthetic.main.activity_base_refresh_list.*
 
 
 /**
@@ -103,7 +103,7 @@ abstract class BaseListVMFragment<VM : BaseListViewModel>() : BaseVMFragment<VM>
 
 
     override val layoutId: Int
-        get() = R.layout.layout_base_refresh_list
+        get() = R.layout.activity_base_refresh_list
 
     abstract fun provideLayoutManager(): RecyclerView.LayoutManager
 

@@ -3,6 +3,7 @@ package com.jansir.core.base.activity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewbinding.ViewBinding
 import com.jansir.core.base.dialog.LoadingDialog
 import com.jansir.core.base.viewmodel.*
 import java.lang.reflect.ParameterizedType
@@ -12,7 +13,7 @@ import java.lang.reflect.ParameterizedType
  * e-mail: xxx
  * date: 2019/9/2.
  */
-abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
+abstract class BaseVMActivity<VB:ViewBinding,VM : BaseViewModel> : BaseActivity<VB>() {
 
     protected val viewModel: VM by lazy {
         getVM()
@@ -23,10 +24,10 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
     }
 
     private fun getVmClazz(obj: Any): Class<VM> {
-        return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<VM>
+        return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>
     }
 
-    private var loading : LoadingDialog?= null
+    private var loading: LoadingDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +41,11 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
         viewModel.mStateLiveData.observe(this, Observer { stateActionState ->
             when (stateActionState) {
                 LoadState -> showLoading()
-                SuccessState ->{
+                SuccessState -> {
                     showContentView()
                     dismissLoading()
                 }
-                DataErrorState->{
+                DataErrorState -> {
                     dismissLoading()
                     handleDataError()
                 }
@@ -57,17 +58,16 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
     }
 
 
-
     private fun showContentView() {
-        mStatusView.showContent()
+        baseBinding.mStatusView.showContent()
     }
 
 
     open fun showLoading() {
-        if(loading == null){
+        if (loading == null) {
             loading = LoadingDialog.getInstance()
         }
-        loading?.show(supportFragmentManager,"loading")
+        loading?.show(supportFragmentManager, "loading")
     }
 
     open fun dismissLoading() {
@@ -75,12 +75,12 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity() {
     }
 
     open fun handleNetWorkError() {
-        if(isShowNoNetView) mStatusView.showNoNetwork()
+        if (isShowNoNetView) baseBinding.mStatusView.showNoNetwork()
     }
 
     open fun handleDataError() {
-        if(isShowNoDataView){
-            mStatusView.showError()
+        if (isShowNoDataView) {
+            baseBinding.mStatusView.showError()
         }
     }
 

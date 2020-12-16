@@ -1,6 +1,7 @@
 package com.jansir.core.ext
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.ContentResolver
 
 import android.content.Context
@@ -9,18 +10,22 @@ import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.os.Parcelable
+import android.view.LayoutInflater
 import android.view.MotionEvent
 
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
+import com.dylanc.viewbinding.inflateBinding
 import com.jansir.core.base.XStarter
 import com.jansir.core.base.activity.BaseActivity
 import com.jansir.core.base.fragment.BaseFragment
@@ -33,6 +38,10 @@ import java.util.*
  * Description: Activity相关
  * Create by lxj, at 2018/12/7
  */
+inline fun <reified VB : ViewBinding> BaseActivity<*>.inflateLazyVB(): Lazy<VB> = lazy {
+    inflateBinding<VB>(layoutInflater)
+}
+
 
 inline fun <reified T> Fragment.startActivity(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null) {
     activity?.startActivity<T>(flag, bundle)
@@ -144,7 +153,7 @@ fun  Activity.getExtraInt(key: String, default: Int = 0): Int {
     return intent.extras?.getInt(key)?:default
 }
 //去应用市场更新
-fun BaseActivity.openMarket(id : String) {
+fun BaseActivity<*>.openMarket(id : String) {
     try {
         val uri = Uri.parse("market://details?id=" + id)
         val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -154,7 +163,7 @@ fun BaseActivity.openMarket(id : String) {
     }
 }
 
-inline fun <reified A : Activity> BaseActivity.open(vararg params: Pair<String, Any>) {
+inline fun <reified A : Activity> BaseActivity<*>.open(vararg params: Pair<String, Any>) {
     XStarter.startActivity<A>(this, *params)
 }
 
@@ -166,7 +175,7 @@ inline fun <reified A : Activity> Context.open(vararg params: Pair<String, Any>)
     XStarter.startActivity<A>(this, *params)
 }
 
-inline fun <reified A : Activity> BaseActivity.openForResult(vararg params: Pair<String, Any>, crossinline okCall: (intent: Intent) -> Unit) {
+inline fun <reified A : Activity> BaseActivity<*>.openForResult(vararg params: Pair<String, Any>, crossinline okCall: (intent: Intent) -> Unit) {
     XStarter.startActivityForResult<A>(this, *params) {
         if (it == null) {
             //未成功处理，即（ResultCode != RESULT_OK）

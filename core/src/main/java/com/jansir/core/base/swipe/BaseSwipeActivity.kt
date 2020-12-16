@@ -1,6 +1,7 @@
 package com.jansir.core.base.swipe
 
 import android.os.Bundle
+import androidx.viewbinding.ViewBinding
 import com.jansir.core.base.activity.BaseActivity
 import me.yokeyword.fragmentation.SwipeBackLayout
 import me.yokeyword.fragmentation_swipeback.core.ISwipeBackActivity
@@ -10,8 +11,8 @@ import me.yokeyword.fragmentation_swipeback.core.ISwipeBackActivity
  * e-mail: xxx
  * date: 2019/9/4.
  */
-abstract  class BaseSwipeActivity :
-    BaseActivity(), ISwipeBackActivity {
+abstract  class BaseSwipeActivity <VB:ViewBinding>:
+    BaseActivity<VB>(), ISwipeBackActivity {
     internal val mDelegate = NSwipeBackActivityDelegate(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

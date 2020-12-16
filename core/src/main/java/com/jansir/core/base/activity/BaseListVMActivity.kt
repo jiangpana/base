@@ -7,21 +7,22 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jansir.core.R
 import com.jansir.core.base.viewmodel.BaseListViewModel
+import com.jansir.core.databinding.ActivityBaseRefreshListBinding
 
 /**
  * author: jansir
  * e-mail: xxx
  * date: 2019/9/2.
  */
-abstract class BaseListVMActivity<VM : BaseListViewModel> : BaseVMActivity<VM>() {
+abstract class BaseListVMActivity<VM : BaseListViewModel> : BaseVMActivity<ActivityBaseRefreshListBinding,VM>() {
 
 
     lateinit var recyclerView: RecyclerView
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun initView() {
-        recyclerView = findViewById(R.id.rv_base)
-        swipeRefreshLayout = findViewById(R.id.sl_base)
+        recyclerView = binding.rvBase
+        swipeRefreshLayout = binding.slBase
         initRvAndAdapter()
     }
 
@@ -96,9 +97,6 @@ abstract class BaseListVMActivity<VM : BaseListViewModel> : BaseVMActivity<VM>()
         viewModel.loadMore()
     }
 
-
-    override val layoutId: Int
-        get() = R.layout.layout_base_refresh_list
 
     abstract fun provideLayoutManager(): RecyclerView.LayoutManager
 
