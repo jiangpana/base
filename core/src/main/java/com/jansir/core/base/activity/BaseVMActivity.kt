@@ -2,10 +2,12 @@ package com.jansir.core.base.activity
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.jansir.core.base.dialog.LoadingDialog
 import com.jansir.core.base.viewmodel.*
+import com.jansir.core.ext.findClazzFromSuperclassGeneric
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -20,12 +22,9 @@ abstract class BaseVMActivity<VB:ViewBinding,VM : BaseViewModel> : BaseActivity<
     }
 
     private fun getVM(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this))
+        return ViewModelProvider(this).get(findClazzFromSuperclassGeneric(ViewModel::class.java)) as VM
     }
 
-    private fun getVmClazz(obj: Any): Class<VM> {
-        return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>
-    }
 
     private var loading: LoadingDialog? = null
 

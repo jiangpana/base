@@ -10,12 +10,17 @@ import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
+import com.dylanc.viewbinding.inflateBinding
 import com.dylanc.viewbinding.inflateBindingWithGeneric
 import com.jansir.core.R
+import com.jansir.core.base.viewmodel.BaseViewModel
 import com.jansir.core.databinding.ActivityBaseBinding
+import com.jansir.core.ext.findClazzFromSuperclassGeneric
 import com.jansir.core.ext.hideKeyboard
 import com.jansir.core.ext.inflateLazyVB
+import com.jansir.core.ext.loge
 import com.jansir.core.util.RomUtil
 import com.jansir.core.util.ScreenAdapterUtil
 import com.jansir.core.util.StatusBarUtil
@@ -25,6 +30,7 @@ import me.yokeyword.fragmentation.SupportActivity
 import java.lang.ref.WeakReference
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
+import java.lang.reflect.ParameterizedType
 
 /**
  * author: jansir
@@ -47,16 +53,11 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //            val clazz = this@BaseActivity::class.java
-//            View.inflate(
-//                this@BaseActivity, if (clazz.isAnnotationPresent(BindLayout::class.java))
-//                    clazz.getAnnotation(BindLayout::class.java)?.id
-//                        ?: layoutId else layoutId, findViewById(R.id.fl_base_container)
-//            )
+
         StatusBarUtil.setTranslucentStatus(this)
         ScreenAdapterUtil.adaptive(WeakReference(this))
         setContentView(baseBinding.root)
-        binding = inflateBindingWithGeneric<VB>(layoutInflater)
+        binding = inflateBinding(findClazzFromSuperclassGeneric(ViewBinding::class.java) as Class<VB>,layoutInflater)
         baseBinding.root.findViewById<FrameLayout>(R.id.fl_base_container)
             .addView(binding.root)
 
@@ -68,7 +69,6 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
                 setBackgroundColor(Color.WHITE)
             }
         }
-
         baseBinding.mStatusView.apply {
             showContent()
             setOnRetryClickListener {
