@@ -1,36 +1,26 @@
 package com.jansir.core.base.activity
 
-import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.dylanc.viewbinding.inflateBinding
-import com.dylanc.viewbinding.inflateBindingWithGeneric
 import com.jansir.core.R
-import com.jansir.core.base.viewmodel.BaseViewModel
 import com.jansir.core.databinding.ActivityBaseBinding
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
 import com.jansir.core.ext.hideKeyboard
 import com.jansir.core.ext.inflateLazyVB
-import com.jansir.core.ext.loge
-import com.jansir.core.util.RomUtil
 import com.jansir.core.util.ScreenAdapterUtil
+import com.jansir.core.util.StatusBarAdapterUtil
 import com.jansir.core.util.StatusBarUtil
 
 import kotlinx.coroutines.*
 import me.yokeyword.fragmentation.SupportActivity
 import java.lang.ref.WeakReference
-import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
-import java.lang.reflect.ParameterizedType
 
 /**
  * author: jansir
@@ -53,9 +43,9 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        ScreenAdapterUtil.adapterScreen(this,640,true)
         StatusBarUtil.setTranslucentStatus(this)
-        ScreenAdapterUtil.adaptive(WeakReference(this))
+        StatusBarAdapterUtil.adaptive(WeakReference(this))
         setContentView(baseBinding.root)
         binding = inflateBinding(findClazzFromSuperclassGeneric(ViewBinding::class.java) as Class<VB>,layoutInflater)
         baseBinding.root.findViewById<FrameLayout>(R.id.fl_base_container)

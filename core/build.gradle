@@ -99,6 +99,8 @@ dependencies {
 
     api 'com.dylanc:viewbinding-ktx:1.0.0'
 
+    api 'com.github.SJJ-dot:Cockroach:2.0.1'
+
 }
 
 apply plugin: 'com.github.dcendents.android-maven'
