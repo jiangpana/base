@@ -167,7 +167,7 @@ inline fun <reified A : Activity> BaseActivity<*>.open(vararg params: Pair<Strin
     XStarter.startActivity<A>(this, *params)
 }
 
-inline fun <reified A : Activity> BaseFragment.open(vararg params: Pair<String, Any>) {
+inline fun <reified A : Activity> BaseFragment<*>.open(vararg params: Pair<String, Any>) {
     XStarter.startActivity<A>(this, *params)
 }
 

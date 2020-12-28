@@ -2,9 +2,12 @@ package com.jansir.core.base.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewbinding.ViewBinding
 import com.jansir.core.base.dialog.LoadingDialog
 import com.jansir.core.base.viewmodel.*
+import com.jansir.core.ext.findClazzFromSuperclassGeneric
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -13,7 +16,7 @@ import java.lang.reflect.ParameterizedType
  * date: 2019/9/2.
  */
 
-abstract class BaseVMFragment<VM : BaseViewModel> : BaseFragment() {
+abstract class BaseVMFragment<VM : BaseViewModel,VB:ViewBinding> : BaseFragment<VB>() {
 
     protected val viewModel: VM by lazy {
         getVM()
@@ -22,11 +25,7 @@ abstract class BaseVMFragment<VM : BaseViewModel> : BaseFragment() {
 
 
     private fun getVM(): VM {
-        return ViewModelProvider(this@BaseVMFragment).get(getVmClazz(this))
-    }
-
-    private fun getVmClazz(obj: Any): Class<VM> {
-        return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<VM>
+        return ViewModelProvider(this@BaseVMFragment).get(findClazzFromSuperclassGeneric(ViewModel::class.java) as Class<VM>)
     }
 
     private var loading: LoadingDialog? = null
@@ -81,16 +80,16 @@ abstract class BaseVMFragment<VM : BaseViewModel> : BaseFragment() {
     }
 
     fun showContentView() {
-        mStatusView.showContent()
+        baseBinding.mStatusView.showContent()
     }
 
     open fun handleNetWorkError() {
-        if(isShowNoNetView) mStatusView.showNoNetwork()
+        if(isShowNoNetView) baseBinding.mStatusView.showNoNetwork()
     }
 
     open fun handleDataError() {
        if(isShowNoDataView){
-           mStatusView.showError()
+           baseBinding.mStatusView.showError()
        }
     }
 

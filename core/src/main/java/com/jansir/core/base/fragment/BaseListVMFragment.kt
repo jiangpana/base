@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewbinding.ViewBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jansir.core.R
 import com.jansir.core.base.viewmodel.BaseListViewModel
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_base_refresh_list.*
  * date: 2020/5/6.
  */
 
-abstract class BaseListVMFragment<VM : BaseListViewModel>() : BaseVMFragment<VM>() {
+abstract class BaseListVMFragment<VM : BaseListViewModel,VB:ViewBinding>() : BaseVMFragment<VM,VB>() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var swipeRefreshLayout: SwipeRefreshLayout

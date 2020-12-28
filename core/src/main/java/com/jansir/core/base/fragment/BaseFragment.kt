@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.Unbinder
+import android.widget.FrameLayout
+import androidx.viewbinding.ViewBinding
+import com.dylanc.viewbinding.inflateBinding
 import com.jansir.core.R
-import com.jansir.core.base.annotation.BindLayout
-import com.jansir.core.ext.visible
-import com.xuexiang.xui.widget.actionbar.TitleBar
+import com.jansir.core.databinding.ActivityBaseBinding
+import com.jansir.core.ext.findClazzFromSuperclassGeneric
 import com.xuexiang.xui.widget.statelayout.MultipleStatusView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -23,14 +23,13 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  * e-mail: xxx
  * date: 2019/9/4.
  */
-abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
+abstract class BaseFragment<VB : ViewBinding> : SupportFragment(), CoroutineScope by MainScope() {
 
-    lateinit var mContext: SupportActivity
-
+    lateinit var mActivity: SupportActivity
+    protected lateinit var baseBinding :ActivityBaseBinding
+    protected lateinit var binding: VB
     protected abstract fun initView()
     protected abstract fun initListener()
-    private lateinit var unBinder: Unbinder
-     var mTitleBar: TitleBar?=null
 
     // true -> 使用基础标题栏
     protected open val isUseBaseTitleBar: Boolean
@@ -38,7 +37,7 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mContext = activity as SupportActivity
+        mActivity = activity as SupportActivity
     }
 
     override fun onCreateView(
@@ -46,37 +45,26 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val clazz = this@BaseFragment::class.java
-        return inflater.inflate(
-            R.layout.activity_base,
-            null
-        ).apply {
-            if (isUseBaseTitleBar) {
-                mTitleBar = findViewById<TitleBar>(R.id.mTitleBarBase)
-                mTitleBar?.visible()
-            }
-            inflater.inflate(
-                if (clazz.isAnnotationPresent(BindLayout::class.java))
-                    clazz.getAnnotation(
-                        BindLayout::class.java
-                    )?.id ?: layoutId
-                else layoutId,
-                findViewById(R.id.fl_base_container)
-            )
-            unBinder = ButterKnife.bind(this)
-            mStatusView = findViewById<MultipleStatusView>(R.id.mStatusView).apply {
+        baseBinding = inflateBinding(inflater)
+        binding = inflateBinding(findClazzFromSuperclassGeneric(ViewBinding::class.java) as Class<VB>,layoutInflater)
+        baseBinding.apply {
+            root.findViewById<FrameLayout>(R.id.fl_base_container)
+                .addView(binding.root)
+            mStatusView.apply {
                 showContent()
-            }
-            mStatusView.setOnRetryClickListener {
-                retry()
+                setOnRetryClickListener {
+                    retry()
+                }
             }
         }
+
+        return baseBinding.root
+
     }
 
     protected open fun retry() {
     }
 
-    protected lateinit var mStatusView: MultipleStatusView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -89,7 +77,6 @@ abstract class BaseFragment : SupportFragment(), CoroutineScope by MainScope() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unBinder.unbind()
 
     }
 
