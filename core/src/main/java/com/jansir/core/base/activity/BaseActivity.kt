@@ -67,8 +67,8 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
         }
         initView()
         initListener()
-
     }
+
 
 
     protected open fun retry() {
@@ -76,6 +76,7 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
 
     abstract fun initView()
     abstract fun initListener()
+    abstract fun initData()
 
     protected fun setTitleText(@StringRes stringId: Int) {
         if (isUseBaseTitleBar) baseBinding.mTitleBarBase.setTitle(stringId)
@@ -122,6 +123,7 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
         } else {
             StatusBarUtil.setStatusBarDarkTheme(this, false)
         }
+        initData()
     }
 
     override fun onDestroy() {

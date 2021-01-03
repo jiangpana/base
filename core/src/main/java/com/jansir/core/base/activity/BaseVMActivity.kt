@@ -31,10 +31,11 @@ abstract class BaseVMActivity<VB:ViewBinding,VM : BaseViewModel> : BaseActivity<
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startObserve()
-        initData()
+        initObserver()
     }
 
-    abstract fun initData()
+    abstract fun initObserver()
+
 
     protected open fun startObserve() {
         viewModel.mStateLiveData.observe(this, Observer { stateActionState ->

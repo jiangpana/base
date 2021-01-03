@@ -100,5 +100,8 @@ class ImageBrowseActivity : BaseActivity<ActivityBaseImageBrowseBinding>() {
             })
     }
 
+    override fun initData() {
+    }
+
 
 }

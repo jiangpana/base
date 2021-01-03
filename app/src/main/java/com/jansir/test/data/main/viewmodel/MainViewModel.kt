@@ -1,10 +1,8 @@
-package com.jansir.test
+package com.jansir.test.data.main.viewmodel
 
 import com.jansir.core.base.viewmodel.BaseViewModel
 
-/**
- * 包名:com.jansir.test
- */
+
 class MainViewModel : BaseViewModel() {
 
 
