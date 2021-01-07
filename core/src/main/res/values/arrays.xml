@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language">
+        <item>繁體中文,tw</item>
+        <item>简体中文,zh</item>
+        <item>English,en</item>
+        <item>日本語,ja</item>
+        <item>Deutsch,de</item>
+        <item>Português,pt</item>
+        <item>Français,fr</item>
+        <item>Español,es</item>
+        <!--印尼语-->
+        <item>Indonesia,in</item>
+        <!--意大利-->
+        <item>Italië,it</item>
+        <item>čeština,cs</item>
+        <item>Polski,pl</item>
+        <item>Slovenščina,sl</item>
+        <item>العربية,ar</item>
+        <item>فارسی,fa</item>
+        <item>Română,ro</item>
+        <item>Suomi,fi</item>
+        <item>Ελληνικά,el</item>
+        <item>Dansk,da</item>
+        <item>हिन्दी,hi</item>
+        <item>ไทย,th</item>
+        <item>Bahasa Melayu,ms</item>
+        <item>Hrvatski,hr</item>
+    </string-array>
+</resources>

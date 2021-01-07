@@ -22,3 +22,14 @@ fun String.toDateMills(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateForma
 fun Long.toDateString(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateFormat(format, Locale.getDefault()).format(Date(this))
 
 fun Int.toDateString(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateFormat(format, Locale.getDefault()).format(Date(this.toLong()))
+
+//获取一个月总天数
+fun Any.getMonthAmount(year: Int, month: Int): Int {
+    val a: java.util.Calendar = java.util.Calendar.getInstance()
+    a[java.util.Calendar.YEAR] = year
+    a[java.util.Calendar.MONTH] = month - 1
+    a[java.util.Calendar.DATE] = 1 //把日期设置为当月第一天
+    a.roll(java.util.Calendar.DATE, -1) //日期回滚一天，也就是最后一天
+    val maxDate: Int = a[java.util.Calendar.DATE]
+    return maxDate
+}

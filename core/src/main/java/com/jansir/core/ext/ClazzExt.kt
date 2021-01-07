@@ -6,7 +6,7 @@ import java.lang.reflect.ParameterizedType
  * 包名:com.jansir.core.ext
  */
 
-//查找此对象的泛型class ，没有找到则抛出异常
+//查找此对象是否有clazz及子类的泛型，没有找到则抛出异常
 fun <T> Any.findClazzFromSuperclassGeneric(clazz: Class<T>): Class<T> {
     try {
         val type = javaClass.genericSuperclass

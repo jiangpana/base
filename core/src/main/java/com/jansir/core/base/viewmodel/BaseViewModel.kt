@@ -21,7 +21,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     val mStateLiveData = MutableLiveData<StateActionEvent>()//通用事件模型驱动(如：显示对话框、取消对话框、错误提示)
 
 
-    fun <T> getLiveDataAndEmit(block: suspend LiveDataScope<T>.() -> T): LiveData<T> = liveData {
+     fun <T> emit(block: suspend LiveDataScope<T>.() -> T): LiveData<T> = liveData {
         try {
             mStateLiveData.value = LoadState
             emit(block())
@@ -31,6 +31,11 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 
+    inline fun <reified T> getAndNewLiveData(url: String, vararg params: Pair<String, Any>): LiveData<T>{
+        return emit {
+           get(url, *params)
+        }
+    }
 
     fun launch(block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch {
@@ -132,7 +137,6 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                     url.http().params(*params).get<BaseResponseList<T>>().await()
                 }
                 if (result == null) {
-                    loge("数据为空")
                     mStateLiveData.postValue(NetErrorState())
                 } else {
                     result.data.let {
@@ -164,7 +168,6 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                         .await()
                 }
                 if (result == null) {
-                    loge("数据为空")
                     mStateLiveData.postValue(NetErrorState())
                 } else {
                     result.data.let {

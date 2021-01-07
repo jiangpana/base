@@ -187,51 +187,6 @@ inline fun <reified A : Activity> BaseActivity<*>.openForResult(vararg params: P
 }
 
 
-fun Context.updateLanguage(locale: Locale) {
-    val localLanguage = locale.language
-    val localCountry = locale.country
-    SPUtils.getInstance("Utils").put("KEY_LOCALE", "$localLanguage$$localCountry")
-    val resources = resources
-    val config = resources.configuration
-    val dm = resources.displayMetrics
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        config.setLocale(locale)
-        createConfigurationContext(config)
-    } else {
-        config.locale = locale
-    }
-    resources.updateConfiguration(config, dm)
-}
-
-fun Resources.getPositionFormConfiguration(): Int {
-    var position = 0
-    when (configuration.locale.language) {
-        "zh" -> {
-            position = if (configuration.locale.country == "CN") {
-                0
-            } else {
-                0
-            }
-        }
-        "en" -> position = 1
-        "ja" -> position = 3
-        "de" -> position = 4
-        "fr" -> position = 5
-        "ru" -> position = 6
-        "pt" -> position = 7
-        "es" -> position = 8
-        "ko" -> position = 9
-        "in" -> position = 10
-        "nl" -> position = 11
-        "it" -> position = 12
-    }
-    return position
-}
-
-
-
-
-
 
 class ImageLoader : XPopupImageLoader {
     override fun loadImage(position: Int, url: Any, imageView: ImageView) {
