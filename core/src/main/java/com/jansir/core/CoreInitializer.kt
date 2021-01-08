@@ -5,10 +5,15 @@ import android.content.Context
 import android.os.Looper
 import android.util.Log
 import androidx.startup.Initializer
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.FormatStrategy
+import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 import com.tencent.mmkv.MMKV
 import com.wanjian.cockroach.Cockroach
 import com.wanjian.cockroach.ExceptionHandler
 import com.xuexiang.xui.XUI
+
 
 /**
  * 包名:com.jansir.core
@@ -20,6 +25,12 @@ class CoreInitializer : Initializer<Unit> {
         XUI.init(context as Application?)
         MMKV.initialize(context)
         installCockroach(context)
+        val formatStrategy = PrettyFormatStrategy.newBuilder()
+            .showThreadInfo(true)
+            .methodCount(1)
+            .tag("jansir")
+            .build();
+        Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
@@ -28,9 +39,13 @@ class CoreInitializer : Initializer<Unit> {
 
     private fun installCockroach(context: Application) {
         Cockroach.install(context
-            ,object: ExceptionHandler(){
+            , object : ExceptionHandler() {
                 override fun onUncaughtExceptionHappened(thread: Thread?, throwable: Throwable?) {
-                    Log.e("AndroidRuntime", "--->onUncaughtExceptionHappened:" + thread + "<---", throwable);
+                    Log.e(
+                        "AndroidRuntime",
+                        "--->onUncaughtExceptionHappened:" + thread + "<---",
+                        throwable
+                    );
 
                 }
 

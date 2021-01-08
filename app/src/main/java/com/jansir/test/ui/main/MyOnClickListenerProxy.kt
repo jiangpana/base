@@ -9,7 +9,6 @@ import com.jansir.core.ext.e
  */
 class MyOnClickListenerProxy : AbsOnClickListenerProxy() {
     override fun onClick(v: View?) {
-        "代理了".e()
         super.onClick(v)
     }
 }

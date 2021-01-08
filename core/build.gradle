@@ -101,6 +101,7 @@ dependencies {
 
     api 'com.github.SJJ-dot:Cockroach:2.0.1'
 
+    api 'com.orhanobut:logger:2.2.0'
 }
 
 apply plugin: 'com.github.dcendents.android-maven'

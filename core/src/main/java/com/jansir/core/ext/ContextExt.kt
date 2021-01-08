@@ -181,8 +181,8 @@ fun RecyclerView.ViewHolder.createDrawable(
 
 
 /** toast相关 **/
-fun Context.toast(msg: CharSequence) {
-    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+fun Any.toast(msg: CharSequence) {
+    Toast.makeText(ContextHolder.sContext, msg, Toast.LENGTH_SHORT).show()
 }
 
 fun Context.longToast(msg: CharSequence) {
