@@ -42,16 +42,16 @@ abstract class BaseVMFragment<VM : BaseViewModel,VB:ViewBinding> : BaseFragment<
         viewModel.let { baseViewModel ->
             baseViewModel.mStateLiveData.observe(this, Observer { stateActionState ->
                 when (stateActionState) {
-                    LoadState -> showLoading()
-                    SuccessState ->{
+                    StateActionEvent.LoadState -> showLoading()
+                    StateActionEvent.SuccessState ->{
                         showContentView()
                         dismissLoading()
                     }
-                    DataErrorState ->{
+                    StateActionEvent.DataErrorState ->{
                         dismissLoading()
                         handleDataError()
                     }
-                    is NetErrorState -> {
+                    is StateActionEvent.NetErrorState -> {
                         dismissLoading()
                         handleNetWorkError()
                     }

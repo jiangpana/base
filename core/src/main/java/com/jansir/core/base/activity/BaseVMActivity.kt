@@ -15,7 +15,7 @@ import java.lang.reflect.ParameterizedType
  * e-mail: xxx
  * date: 2019/9/2.
  */
-abstract class BaseVMActivity<VB:ViewBinding,VM : BaseViewModel> : BaseActivity<VB>() {
+abstract class BaseVMActivity<VB : ViewBinding, VM : BaseViewModel> : BaseActivity<VB>() {
 
     protected val viewModel: VM by lazy {
         getVM()
@@ -40,16 +40,16 @@ abstract class BaseVMActivity<VB:ViewBinding,VM : BaseViewModel> : BaseActivity<
     protected open fun startObserve() {
         viewModel.mStateLiveData.observe(this, Observer { stateActionState ->
             when (stateActionState) {
-                LoadState -> showLoading()
-                SuccessState -> {
+                StateActionEvent.LoadState -> showLoading()
+                StateActionEvent.SuccessState -> {
                     showContentView()
                     dismissLoading()
                 }
-                DataErrorState -> {
+                StateActionEvent.DataErrorState -> {
                     dismissLoading()
                     handleDataError()
                 }
-                is NetErrorState -> {
+                StateActionEvent.NetErrorState -> {
                     dismissLoading()
                     handleNetWorkError()
                 }

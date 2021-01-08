@@ -2,9 +2,9 @@ package com.jansir.core.base.viewmodel
 
 import androidx.lifecycle.*
 import com.google.gson.JsonObject
-import com.jansir.core.ContextHolder
 import com.jansir.core.ext.toast
 import com.jansir.core.http.*
+import com.orhanobut.logger.Logger
 
 import kotlinx.coroutines.*
 import kotlin.coroutines.resume
@@ -20,82 +20,111 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     val mStateLiveData = MutableLiveData<StateActionEvent>()
 
 
-    inner class PARAM {
-        var mUrl: String = ""
-        var mShowLoading: Boolean = false
-        var mShowToast: Boolean = false
-        var mParams: Array<out Pair<String, Any>> = arrayOf()
+    open class PARAM {
+        var url: String = "https://wanandroid.com/wxarticle/chapters/json"
+        var isShowLoading: Boolean = false
+        var isShowToast: Boolean = false
+        var params: Array<out Pair<String, Any>> = arrayOf()
+        var method: RequestMethod = RequestMethod.GET
+    }
+
+    sealed class RequestMethod {
+        object POST : RequestMethod()
+        object GET : RequestMethod()
+        object DELETE : RequestMethod()
+        object PUT : RequestMethod()
+        data class POSTJSON(val json: String) : RequestMethod()
     }
 
     inner class LiveDataBuilder {
 
-
         val p = PARAM()
-
         fun get(): LiveDataBuilder {
+            p.method = RequestMethod.GET
             return this
         }
 
         fun post(): LiveDataBuilder {
+            p.method = RequestMethod.POST
             return this
         }
 
         fun delete(): LiveDataBuilder {
+            p.method = RequestMethod.DELETE
             return this
         }
 
-        fun postJson(): LiveDataBuilder {
+        fun postJson(vararg params: Pair<String, String>): LiveDataBuilder {
+            val json = JsonObject().apply {
+                params.forEach {
+                    addProperty(it.first, it.second)
+                }
+            }
+            p.method = RequestMethod.POSTJSON(json.toString())
             return this
         }
 
         fun put(): LiveDataBuilder {
+            p.method = RequestMethod.PUT
             return this
         }
 
         fun url(url: String): LiveDataBuilder {
-            p.mUrl = url
+            p.url = url
             return this
         }
 
         fun params(vararg params: Pair<String, Any>): LiveDataBuilder {
-            p.mParams = params
+            p.params = params
             return this
         }
 
         fun showLoading(loading: Boolean): LiveDataBuilder {
-            p.mShowLoading = loading
+            p.isShowLoading = loading
             return this
         }
 
-        inline fun <reified T> build(crossinline processData: T.() -> Unit = {}): LiveData<T> {
-            return newLiveData(
-                p, processData = processData
-            )
+        fun showToast(toast: Boolean): LiveDataBuilder {
+            p.isShowToast = toast
+            return this
         }
-    }
 
-    fun test() {
-
-      val data=  LiveDataBuilder()
-            .get()
-            .params()
-            .url("")
-            .build<BaseViewModel> { }
+        inline fun <reified T> build() = newLiveData<T>(p)
     }
+//    crossinline processData: T.() -> Unit = {}
 
     inline fun <reified T> newLiveData(
-        p: PARAM, crossinline processData: T.() -> Unit
+        p: PARAM
     ): LiveData<T> {
-        return emit {
-            get(p, processData = processData)
+        return liveData {
+            request<T>(p)?.let { emit(it) }
         }
     }
 
+    suspend inline fun <reified T> request(
+        p: PARAM
+    ): T? {
+        return suspendCancellableCoroutine { continuation ->
+            launch(p.isShowLoading) {
+                val response = withContext(Dispatchers.IO) {
+                    when (p.method) {
+                        RequestMethod.DELETE -> p.url.http().params(*p.params)
+                            .delete<BaseResponse<T>>().await()
+                        RequestMethod.GET -> p.url.http().params(*p.params)
+                            .get<BaseResponse<T>>().await()
+                        RequestMethod.PUT -> p.url.http().params(*p.params)
+                            .put<BaseResponse<T>>().await()
+                        RequestMethod.POST -> p.url.http().params(*p.params)
+                            .post<BaseResponse<T>>().await()
+                        is RequestMethod.POSTJSON -> p.url.http().params(*p.params)
+                            .postJson<BaseResponse<T>>((p.method as RequestMethod.POSTJSON).json)
+                            .await()
 
-    fun <T> emit(block: suspend LiveDataScope<T>.() -> T): LiveData<T> = liveData {
-        try {
-            emit(block())
-        } catch (e: Exception) {
+                    }
+
+                }
+                handleResponse(response, continuation, p)
+            }
         }
     }
 
@@ -103,114 +132,39 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         viewModelScope.launch {
             try {
                 if (showLoading) {
-                    mStateLiveData.value = LoadState
+                    mStateLiveData.value = StateActionEvent.LoadState
                 }
                 block()
-                mStateLiveData.value = SuccessState
+                mStateLiveData.value = StateActionEvent.SuccessState
             } catch (e: Exception) {
                 e.printStackTrace()
-                mStateLiveData.value = DataErrorState
+                mStateLiveData.value = StateActionEvent.DataErrorState
             }
         }
 
     }
 
 
-    suspend inline fun <reified T> get(
-        p: PARAM, crossinline processData: T.() -> Unit
-    ): T {
-        return suspendCancellableCoroutine { continuation ->
-            launch(p.mShowLoading) {
-                val result = withContext(Dispatchers.IO) {
-                    p.mUrl.http().params(*p.mParams).get<BaseResponse<T>>().await()
-                }
-                handleResult(result, continuation, processData)
-            }
-        }
-    }
-
-
-    suspend inline fun <reified T> put(
-        url: String, vararg params: Pair<String, Any>,
-        showLoading: Boolean = false, crossinline processData: T.() -> Unit
-    ): T {
-        return suspendCancellableCoroutine { continuation ->
-            launch(showLoading) {
-                val result = withContext(Dispatchers.IO) {
-                    url.http().params(*params).put<BaseResponse<T>>().await()
-                }
-                handleResult(result, continuation, processData)
-            }
-        }
-    }
-
-    suspend inline fun <reified T> delete(
-        url: String, vararg params: Pair<String, Any>,
-        showLoading: Boolean = false, crossinline processData: T.() -> Unit
-    ): T {
-        return suspendCancellableCoroutine { continuation ->
-            launch(showLoading) {
-                val result = withContext(Dispatchers.IO) {
-                    url.http().params(*params).delete<BaseResponse<T>>().await()
-                }
-                handleResult(result, continuation, processData)
-            }
-        }
-    }
-
-
-    suspend inline fun <reified T> post(
-        url: String, vararg params: Pair<String, String>,
-        showLoading: Boolean = false, crossinline processData: T.() -> Unit
-    ): T {
-        return suspendCancellableCoroutine { continuation ->
-            launch(showLoading) {
-                val result = withContext(Dispatchers.IO) {
-                    url.http().params(*params).post<BaseResponse<T>>().await()
-                }
-                handleResult(result, continuation, processData)
-            }
-        }
-    }
-
-    suspend inline fun <reified T> postJson(
-        url: String, vararg params: Pair<String, String>,
-        showLoading: Boolean = false, crossinline processData: T.() -> Unit
-    ): T {
-        return suspendCancellableCoroutine { continuation ->
-            launch(showLoading) {
-                val json = JsonObject().apply {
-                    params.forEach {
-                        addProperty(it.first, it.second)
-                    }
-                }
-                val result = withContext(Dispatchers.IO) {
-                    url.http().params(*params).postJson<BaseResponse<T>>(json.toString()).await()
-                }
-
-                handleResult(result, continuation, processData)
-            }
-        }
-    }
-
-
-    inline fun <reified T> handleResult(
+    inline fun <reified T> handleResponse(
         result: BaseResponse<T>?,
-        continuation: CancellableContinuation<T>, crossinline processData: T.() -> Unit
+        continuation: CancellableContinuation<T?>
+        , p: PARAM
     ) {
         if (result == null) {
-            mStateLiveData.postValue(NetErrorState())
+            Logger.e("数据为空")
+            mStateLiveData.postValue(StateActionEvent.NetErrorState)
+            continuation.resume(null)
         } else {
             when (result.statusCode) {
                 in 400..500 -> {
-                    mStateLiveData.postValue(DataErrorState)
-                    toast(result.message)
+                    if (p.isShowToast) {
+                        toast(result.message)
+                    }
+                    mStateLiveData.postValue(StateActionEvent.DataErrorState)
                 }
                 in 200..300 -> {
-                    result.data.let {
-                        processData(it)
-                        continuation.resume(it)
-                    }
+//                    processData(result.data)
+                    continuation.resume(result.data)
                 }
             }
         }

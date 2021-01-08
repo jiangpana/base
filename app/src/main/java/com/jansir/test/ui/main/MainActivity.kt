@@ -9,6 +9,7 @@ import com.jansir.test.databinding.ActivityMainBinding
 import com.jansir.test.data.main.viewmodel.MainViewModel
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.*
+import kotlin.random.Random
 
 class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>() {
 
@@ -19,32 +20,19 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun initListener() {
         binding.tvTest.click {
-            toast("点击了")
-            launch() {
-                delay(30000)
-                val a = withContext(Dispatchers.IO) {
-                    Logger.e("测试")
-                    delay(10000)
-                   1
-                }
-                Logger.e("a = ${a}")
-                val b = async(Dispatchers.IO) {
-                    delay(3000)
-                   2
-                }
-                val c = async {
-                    delay(3000)
-                    2
-                }
-                Logger.e((b.await()+c.await()).toString())
-            }
+            viewModel.test()
 
         }
 
     }
 
     override fun initObserver() {
-
+        viewModel.user.observeForever {
+            Logger.e(it)
+        }
+        viewModel.testLivedata.observeForever {
+            Logger.e(it.toString())
+        }
     }
 
     override fun initData() {

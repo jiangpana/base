@@ -24,7 +24,7 @@ class CoreInitializer : Initializer<Unit> {
         ContextHolder.sContext = context
         XUI.init(context as Application?)
         MMKV.initialize(context)
-        installCockroach(context)
+//        installCockroach(context)
         val formatStrategy = PrettyFormatStrategy.newBuilder()
             .showThreadInfo(true)
             .methodCount(1)

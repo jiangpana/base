@@ -5,12 +5,14 @@ package com.jansir.core.base.viewmodel
  * e-mail: xxx
  * date: 2020/5/6.
  */
-sealed  class StateActionEvent
+sealed class StateActionEvent {
 
-object LoadState : StateActionEvent()
+    object LoadState : StateActionEvent()
 
-object SuccessState : StateActionEvent()
+    object SuccessState : StateActionEvent()
 
-class NetErrorState(val message: String?="") : StateActionEvent()
+    object NetErrorState : StateActionEvent()
 
-object DataErrorState : StateActionEvent()
+    object DataErrorState : StateActionEvent()
+}
+
