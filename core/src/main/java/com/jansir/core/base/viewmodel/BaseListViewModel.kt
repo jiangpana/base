@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
  *
  * 用于分页的base viewModel
  */
-abstract class BaseListViewModel : BaseViewModel() {
+abstract class BaseListViewModel<T :BaseRepository> : BaseViewModel<T>() {
 
     class PageInfo {
 

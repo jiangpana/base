@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_base_refresh_list.*
  * date: 2020/5/6.
  */
 
-abstract class BaseListVMFragment<VM : BaseListViewModel,VB:ViewBinding>() : BaseVMFragment<VM,VB>() {
+abstract class BaseListVMFragment<VM : BaseListViewModel<*>,VB:ViewBinding>() : BaseVMFragment<VM,VB>() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var swipeRefreshLayout: SwipeRefreshLayout

@@ -14,7 +14,7 @@ import com.jansir.core.databinding.ActivityBaseRefreshListBinding
  * e-mail: xxx
  * date: 2019/9/2.
  */
-abstract class BaseListVMActivity<VM : BaseListViewModel> : BaseVMActivity<ActivityBaseRefreshListBinding,VM>() {
+abstract class BaseListVMActivity<VM : BaseListViewModel<*>> : BaseVMActivity<ActivityBaseRefreshListBinding,VM>() {
 
 
     lateinit var recyclerView: RecyclerView

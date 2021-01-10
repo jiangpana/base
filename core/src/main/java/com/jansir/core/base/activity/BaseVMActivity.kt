@@ -15,7 +15,7 @@ import java.lang.reflect.ParameterizedType
  * e-mail: xxx
  * date: 2019/9/2.
  */
-abstract class BaseVMActivity<VB : ViewBinding, VM : BaseViewModel> : BaseActivity<VB>() {
+abstract class BaseVMActivity<VB : ViewBinding, VM : BaseViewModel<*>> : BaseActivity<VB>() {
 
     protected val viewModel: VM by lazy {
         getVM()

@@ -16,7 +16,7 @@ import java.lang.reflect.ParameterizedType
  * date: 2019/9/2.
  */
 
-abstract class BaseVMFragment<VM : BaseViewModel,VB:ViewBinding> : BaseFragment<VB>() {
+abstract class BaseVMFragment<VM : BaseViewModel<*>,VB:ViewBinding> : BaseFragment<VB>() {
 
     protected val viewModel: VM by lazy {
         getVM()

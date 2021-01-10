@@ -1,40 +1,29 @@
-package com.jansir.test.data.main.viewmodel
+package com.jansir.test.model.main.viewmodel
 
 import androidx.lifecycle.*
 import com.jansir.core.base.viewmodel.BaseViewModel
 import com.jansir.core.http.get
 import com.jansir.core.http.http
+import com.jansir.test.model.main.entity.Chapter
+import com.jansir.test.model.main.repository.MainRepository
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel : BaseViewModel<MainRepository>() {
+
+
 
 
     val message: MutableLiveData<String> = MutableLiveData()
 
-    val testLivedata = message.switchMap {te->
-        liveData {
-
-            val result =withContext (Dispatchers.IO){
-                "https://wanandroid.com/wxarticle/chapters/json".http().get<String>().await()
-            }
-             if(result != null){
-                 emit(result)
-             }else{
-                 emit("result ==null")
-             }
-
-        }
+    val testLivedata :LiveData<List<Chapter>> by lazy {
+        repository.testReq(message)
     }
 
-    lateinit var test: LiveData<String>
     fun test() {
         message.value = "abcd"
-
     }
 
     val userId: MutableLiveData<String> = MutableLiveData()
