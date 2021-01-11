@@ -14,7 +14,7 @@ import com.tencent.mmkv.MMKV
 * "".getMMkvValueParcelable(kvName)
 * */
 
- fun openMMkv(name: String): MMKV {
+fun openMMkv(name: String): MMKV {
     if (name.isEmpty()) {
         return MMKV.defaultMMKV()
     } else {
@@ -22,7 +22,7 @@ import com.tencent.mmkv.MMKV
     }
 }
 
-fun String.putMMkvValue(kvName: String = "", value: Any) {
+fun String.encodeValue(kvName: String = "", value: Any) {
     when (value) {
         is String -> openMMkv(kvName).encode(this, value)
         is Int -> openMMkv(kvName).encode(this, value)
@@ -35,20 +35,29 @@ fun String.putMMkvValue(kvName: String = "", value: Any) {
 
 }
 
-inline fun <reified T > String.getMMkvValue(kvName: String = ""): T? {
+fun String.decodeBool(kvName: String = "", defaultValue: Boolean = true) =
+    openMMkv(kvName).decodeBool(this, defaultValue)
+
+inline fun <reified T> String.decode(kvName: String = ""): T {
     return when (T::class) {
-        String::class -> openMMkv(kvName).decodeString(this) as T
+        String::class -> openMMkv(kvName).decodeString(this, "") as T
         Int::class -> openMMkv(kvName).decodeInt(this) as T
-        Boolean::class -> openMMkv(kvName).decodeBool(this, true) as T
         Double::class -> openMMkv(kvName).decodeDouble(this) as T
         Long::class -> openMMkv(kvName).decodeLong(this) as T
-        Set::class -> openMMkv(kvName).decodeStringSet(this) as T
-        ByteArray::class -> openMMkv(kvName).decodeBytes(this) as T
-        else -> null
+        Set::class -> openMMkv(kvName).decodeStringSet(this, setOf()) as T
+        ByteArray::class -> openMMkv(kvName).decodeBytes(this, byteArrayOf()) as T
+        else -> throw RuntimeException("not support ${T::class.java.simpleName} decode")
     }
 
 }
 
-inline fun <reified T : Parcelable> String.getMMkvValueParcelable(kvName: String = ""): T? {
-    return   openMMkv(kvName).decodeParcelable(this, T::class.java) as T
+inline fun <reified T : Parcelable> String.decodeParcelable(
+    kvName: String = "",
+    putValue: () -> T? = { null }
+): T {
+    val value = openMMkv(kvName).decodeParcelable(this, T::class.java)
+    if (value == null) {
+        openMMkv(kvName).encode(this, putValue())
+    } else return value
+    return openMMkv(kvName).decodeParcelable(this, T::class.java)
 }
