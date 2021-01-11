@@ -2,13 +2,9 @@ package com.jansir.test.model.main.viewmodel
 
 import androidx.lifecycle.*
 import com.jansir.core.base.viewmodel.BaseViewModel
-import com.jansir.core.http.get
-import com.jansir.core.http.http
-import com.jansir.test.model.main.entity.Chapter
+import com.jansir.test.model.main.dto.ChapterDTO
 import com.jansir.test.model.main.repository.MainRepository
 import com.orhanobut.logger.Logger
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 class MainViewModel : BaseViewModel<MainRepository>() {
@@ -18,7 +14,7 @@ class MainViewModel : BaseViewModel<MainRepository>() {
 
     val message: MutableLiveData<String> = MutableLiveData()
 
-    val testLivedata :LiveData<List<Chapter>> by lazy {
+    val testLivedata :LiveData<List<ChapterDTO>> by lazy {
         repository.testReq(message)
     }
 

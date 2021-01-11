@@ -8,7 +8,6 @@ import androidx.viewbinding.ViewBinding
 import com.jansir.core.base.dialog.LoadingDialog
 import com.jansir.core.base.viewmodel.*
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
-import java.lang.reflect.ParameterizedType
 
 /**
  * author: jansir
@@ -38,12 +37,12 @@ abstract class BaseVMActivity<VB : ViewBinding, VM : BaseViewModel<*>> : BaseAct
 
 
     protected open fun startObserve() {
-        viewModel.mStateLiveData.observe(this, Observer { stateActionState ->
+        viewModel.stateLiveData.observe(this, Observer { stateActionState ->
             when (stateActionState) {
-                StateActionEvent.LoadState -> showLoading()
+                StateActionEvent.LoadingState -> showLoading()
                 StateActionEvent.SuccessState -> {
-                    showContentView()
                     dismissLoading()
+                    showContentView()
                 }
                 StateActionEvent.DataErrorState -> {
                     dismissLoading()

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  * date: 2019/11/23.
  */
 
- data class BaseResponse<T>(
+  data class BaseResponse<T>(
         @SerializedName("data")
         val `data`: T,
         @SerializedName("code")
