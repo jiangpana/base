@@ -1,2 +1,3 @@
+includeBuild('VersionPlugin')
 include ':app',':core'
 rootProject.name = "base"
