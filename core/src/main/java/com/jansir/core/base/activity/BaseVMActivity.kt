@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.jansir.core.base.dialog.LoadingDialog
-import com.jansir.core.base.viewmodel.*
+import com.jansir.core.base.viewmodel.BaseViewModel
+import com.jansir.core.base.viewmodel.StateActionEvent
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
 
 /**

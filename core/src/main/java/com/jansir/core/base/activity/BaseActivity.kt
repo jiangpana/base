@@ -4,11 +4,11 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.MotionEvent
+import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
 import androidx.viewbinding.ViewBinding
-
 import com.jansir.core.R
 import com.jansir.core.databinding.ActivityBaseBinding
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
@@ -18,8 +18,9 @@ import com.jansir.core.ext.inflateLazyVB
 import com.jansir.core.util.ScreenAdapterUtil
 import com.jansir.core.util.StatusBarAdapterUtil
 import com.jansir.core.util.StatusBarUtil
-
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import me.yokeyword.fragmentation.SupportActivity
 import java.lang.ref.WeakReference
 

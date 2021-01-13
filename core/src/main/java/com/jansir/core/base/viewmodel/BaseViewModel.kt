@@ -1,16 +1,20 @@
 package com.jansir.core.base.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-import kotlinx.coroutines.*
 
 /**
  * author: jansir
  * e-mail: xxx
  * date: 2019/9/2.
  */
-abstract class BaseViewModel <T :BaseRepository>: ViewModel(), LifecycleObserver {
+abstract class BaseViewModel<T : BaseRepository> : ViewModel(), LifecycleObserver {
 
 
     protected val repository: T by lazy {
@@ -20,7 +24,8 @@ abstract class BaseViewModel <T :BaseRepository>: ViewModel(), LifecycleObserver
     }
 
     private fun getRep(): T {
-        return findClazzFromSuperclassGeneric(BaseRepository::class.java).getDeclaredConstructor().newInstance() as T
+        return findClazzFromSuperclassGeneric(BaseRepository::class.java).getDeclaredConstructor()
+            .newInstance() as T
     }
 
 

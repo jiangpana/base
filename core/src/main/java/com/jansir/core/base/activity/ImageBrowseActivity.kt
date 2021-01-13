@@ -8,11 +8,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
-import com.jansir.core.R
 import com.jansir.core.databinding.ActivityBaseImageBrowseBinding
 import com.jansir.core.ext.getExtraString
 import com.jansir.core.ext.getExtraStringList
-import com.jansir.core.ext.inflateLazyVB
 import com.jansir.core.util.StatusBarUtil
 
 

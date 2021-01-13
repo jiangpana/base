@@ -8,14 +8,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.content.res.Configuration
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
-import android.media.MediaScannerConnection
-import android.net.Uri
-import android.os.*
+import android.os.Build
 import android.util.Base64
 import android.util.Log
 import android.view.MotionEvent
@@ -26,18 +23,8 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.jansir.core.ContextHolder
 import com.jansir.core.util.AES256Util
-import com.jansir.core.util.NetworkUtils
-import com.tencent.mmkv.MMKV
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.Serializable
 import java.lang.reflect.InvocationTargetException
 
 

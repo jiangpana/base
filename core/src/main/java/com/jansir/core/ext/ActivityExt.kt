@@ -1,29 +1,22 @@
 package com.jansir.core.ext
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.ContentResolver
-
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
-import android.os.Build
 import android.os.Parcelable
-import android.view.LayoutInflater
 import android.view.MotionEvent
-
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewbinding.ViewBinding
-import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.jansir.core.base.XStarter
 import com.jansir.core.base.activity.BaseActivity
