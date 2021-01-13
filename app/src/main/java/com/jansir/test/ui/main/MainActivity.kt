@@ -19,10 +19,6 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun initListener() {
-//        binding.tvTest.click {
-//            viewModel.test()
-//
-//        }
 
         for (i in 0..20){
             val button = Button(this)
