@@ -97,8 +97,6 @@ dependencies {
     api "com.blankj:utilcode:1.25.5"
     api "com.hjq:xxpermissions:9.6"
 
-    api 'com.dylanc:viewbinding-ktx:1.0.0'
-
     api 'com.github.SJJ-dot:Cockroach:2.0.1'
 
     api 'com.orhanobut:logger:2.2.0'

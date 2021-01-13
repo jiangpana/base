@@ -25,7 +25,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
-import com.dylanc.viewbinding.inflateBinding
 import com.jansir.core.base.XStarter
 import com.jansir.core.base.activity.BaseActivity
 import com.jansir.core.base.fragment.BaseFragment
