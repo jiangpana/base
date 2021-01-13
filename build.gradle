@@ -32,15 +32,17 @@ plugins {
 subprojects { subproject ->
     // 默认应用所有子项目中
     apply plugin: 'com.jansir.versionplugin'
-
     // 如果想应用到某个子项目中，可以通过 subproject.name 来判断应用在哪个子项目中
     // subproject.name 是你子项目的名字，示例如下
     // 官方文档地址：https://guides.gradle.org/creating-multi-project-builds/#add_documentation
     if (subproject.name == "app") {
         apply plugin: 'com.android.application'
-        apply plugin: 'kotlin-android'
-//        apply plugin: 'kotlin-android-extensions'
     }
+    if(subproject.name == "core"){
+        apply plugin: 'com.android.library'
+    }
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-kapt'
 }
 
 allprojects {

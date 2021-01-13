@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/ConstraintLayout"
-    tools:context=".ConstraintLayoutActivity">
+>
 
     <TextView
         android:id="@+id/btn_target"
@@ -27,6 +27,7 @@
         app:barrierAllowsGoneWidgets="false"
         app:barrierDirection="end"
         app:constraint_referenced_ids="btn_target,btn_source" />
+
 
     <TextView
         android:id="@+id/btn_source"

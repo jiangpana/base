@@ -8,7 +8,7 @@ import androidx.viewbinding.ViewBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jansir.core.R
 import com.jansir.core.base.viewmodel.BaseListViewModel
-import kotlinx.android.synthetic.main.activity_base_refresh_list.*
+import com.jansir.core.databinding.ActivityBaseRefreshListBinding
 
 
 /**
@@ -23,8 +23,8 @@ abstract class BaseListVMFragment<VM : BaseListViewModel<*>,VB:ViewBinding>() : 
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun initView() {
-        this.recyclerView = rv_base
-        swipeRefreshLayout = sl_base
+//        this.recyclerView = rv_base
+//        swipeRefreshLayout = sl_base
         initRvAndAdapter()
     }
 

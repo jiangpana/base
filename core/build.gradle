@@ -1,17 +1,16 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+import com.jansir.versionplugin.*
+
+
 
 android {
 
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion BuildConfig.compileSdkVersion
+    buildToolsVersion BuildConfig.buildToolsVersion
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion BuildConfig.minSdkVersion
+        targetSdkVersion BuildConfig.targetSdkVersion
+        versionCode BuildConfig.versionCode
+        versionName  BuildConfig.versionName
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -44,64 +43,56 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    testApi 'junit:junit:4.12'
-    androidTestApi 'androidx.test.ext:junit:1.1.2'
-    androidTestApi'androidx.test.espresso:espresso-core:3.3.0'
+    //test
+    testApi Test.junit
+    androidTestApi Test.androidTestJunit
+    androidTestApi Test.espressoCore
     // x
-    api "androidx.core:core-ktx:1.3.2"
-    api "androidx.appcompat:appcompat:1.2.0"
-    api 'androidx.constraintlayout:constraintlayout:2.0.4'
-    api 'androidx.cardview:cardview:1.0.0'
-    implementation "androidx.startup:startup-runtime:1.0.0"
-    api 'androidx.recyclerview:recyclerview:1.1.0'
-    api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha02'
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha03"
-    api "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha03"
-
+    api AndroidX.core_ktx
+    api AndroidX.appcompat
+    api AndroidX.constraintlayout
+    api AndroidX.cardview
+    api AndroidX.startup
+    api AndroidX.recyclerview
+    api AndroidX.swiperefreshlayout
+    api AndroidX.lifecycle_extensions
+    api AndroidX.lifecycle_livedata_ktx
+    api AndroidX.lifecycle_viewmodel_ktx
     // kt
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.1"
-    api "org.jetbrains.kotlin:kotlin-stdlib:1.3.41"
-
-    //事件
-    api "com.jeremyliao:live-event-bus-x:1.5.7"
-
-    //图片加载
-    api "com.github.bumptech.glide:glide:4.6.1"
-
-    //view
-    api "com.github.xuexiangjys:XUI:1.1.5"
-    api "com.lxj:xpopup:2.1.17"
-    api "com.contrarywind:Android-PickerView:3.2.5"
-    api "com.github.LuckSiege.PictureSelector:picture_library:v2.2.3"
-    api "com.airbnb.android:lottie:2.5.4"
-    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
-    api "com.lxj:easyadapter:1.2.2"
-
+    api Kotlin.kotlin
+    api Kotlin.coroutines_core
+    api Kotlin.coroutines_android
+    //bus
+    api Bus.live_event_bus_x
+    //glide
+    api Glide.glide
+    //ui
+    api UI.XUI
+    api UI.xpopup
+    api UI.PickerView
+    api UI.PictureSelector
+    api UI.lottie
+    api UI.BaseRecyclerViewAdapterHelper
+    api UI.easyadapter
+    api UI.me_fragmentationx
+    api UI.me_fragmentationx_swipeback
+    api UI.me_eventbus_activity_scope
+    api UI.viewbinding_ktx
     //http
-    api "com.google.code.gson:gson:2.8.5"
-    api "com.squareup.okhttp3:okhttp:3.12.1"
-    api "me.jessyan:progressmanager:1.5.0"
-
-
-    //mmkv
-    api 'com.tencent:mmkv:1.2.4'
-
-    //fragment
-    api "me.yokeyword:fragmentationx:1.0.1"
-    api "me.yokeyword:fragmentationx-swipeback:1.0.1"
-    api "me.yokeyword:eventbus-activity-scope:1.1.0"
-
+    api Http.gson
+    api Http.okhttp
+    api Http.progressmanager
+    //data
+    api Data.mmkv
     //tool
-    api "com.blankj:utilcode:1.25.5"
-    api "com.hjq:xxpermissions:9.6"
+    api Tool.utilcode
+    api Tool.xxpermissions
+    api Tool.Cockroach
+    api Tool.logger
 
-    api 'com.dylanc:viewbinding-ktx:1.0.0'
 
-    api 'com.github.SJJ-dot:Cockroach:2.0.1'
 
-    api 'com.orhanobut:logger:2.2.0'
+
 }
 
 apply plugin: 'com.github.dcendents.android-maven'
