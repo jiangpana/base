@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.viewbinding.ViewBinding
-import com.dylanc.viewbinding.inflateBinding
 import com.jansir.core.R
 import com.jansir.core.databinding.ActivityBaseBinding
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
+import com.jansir.core.ext.inflateBinding
 import com.xuexiang.xui.widget.statelayout.MultipleStatusView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope

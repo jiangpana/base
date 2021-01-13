@@ -1,6 +1,7 @@
 import com.jansir.versionplugin.*
-
-
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -77,7 +78,7 @@ dependencies {
     api UI.me_fragmentationx
     api UI.me_fragmentationx_swipeback
     api UI.me_eventbus_activity_scope
-    api UI.viewbinding_ktx
+//    api UI.viewbinding_ktx
     //http
     api Http.gson
     api Http.okhttp

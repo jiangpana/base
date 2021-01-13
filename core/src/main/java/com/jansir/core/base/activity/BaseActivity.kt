@@ -8,11 +8,11 @@ import android.view.*
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
 import androidx.viewbinding.ViewBinding
-import com.dylanc.viewbinding.inflateBinding
 import com.jansir.core.R
 import com.jansir.core.databinding.ActivityBaseBinding
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
 import com.jansir.core.ext.hideKeyboard
+import com.jansir.core.ext.inflateBinding
 import com.jansir.core.ext.inflateLazyVB
 import com.jansir.core.util.ScreenAdapterUtil
 import com.jansir.core.util.StatusBarAdapterUtil
