@@ -1,7 +1,7 @@
 package com.jansir.core.base.viewmodel
 
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
@@ -14,13 +14,12 @@ import kotlinx.coroutines.launch
  * e-mail: xxx
  * date: 2019/9/2.
  */
-abstract class BaseViewModel<T : BaseRepository> : ViewModel(), LifecycleObserver {
 
+abstract class BaseViewModel<T : BaseRepository> :
+    ViewModel(), LifecycleObserver {
 
-    protected val repository: T by lazy {
-        getRep().apply {
-            init(this@BaseViewModel)
-        }
+    val repository: T by lazy {
+        getRep()
     }
 
     private fun getRep(): T {
@@ -28,9 +27,26 @@ abstract class BaseViewModel<T : BaseRepository> : ViewModel(), LifecycleObserve
             .newInstance() as T
     }
 
-
     //通用事件模型驱动(如：显示对话框、取消对话框、错误提示)
-    val stateLiveData = MutableLiveData<StateActionEvent>()
+    val stateLiveData = MediatorLiveData<StateActionEvent>()
+
+    init {
+        repository.apply {
+            requestSuccess = {
+                stateLiveData.value = StateActionEvent.SuccessState
+            }
+            requestDataError = {
+                stateLiveData.value = StateActionEvent.DataErrorState
+            }
+            requestLoading = {
+                stateLiveData.value = StateActionEvent.LoadingState
+            }
+            requestNetWorkError = {
+                stateLiveData.value = StateActionEvent.NetErrorState
+            }
+        }
+
+    }
 
     fun launch(showLoading: Boolean = false, block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch {

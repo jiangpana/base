@@ -14,6 +14,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun initView() {
         hookView(ScaleTouchListenerProxy(), MyOnClickListenerProxy())
+
     }
 
     override fun initListener() {
@@ -21,7 +22,6 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>() {
             viewModel.test()
 
         }
-
     }
 
     override fun initObserver() {

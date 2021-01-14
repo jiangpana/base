@@ -10,15 +10,28 @@ import kotlinx.coroutines.withContext
 
 abstract class BaseRepository {
 
-    lateinit var viewModel: BaseViewModel<*>
 
-    fun init(viewModel: BaseViewModel<*>) {
-        this.viewModel = viewModel
-    }
+    var requestNetWorkError: (() -> Unit) = {}
+        set(value) {
+            field = value
 
+        }
 
-    fun <T : BaseViewModel<*>> getVm(): T = viewModel as T
+    var requestLoading: (() -> Unit) = {}
+        set(value) {
+            field = value
 
+        }
+    var requestSuccess: (() -> Unit) = {}
+        set(value) {
+            field = value
+
+        }
+    var requestDataError: (() -> Unit) = {}
+        set(value) {
+            field = value
+
+        }
 
     sealed class RequestMethod {
         object POST : RequestMethod()
@@ -92,10 +105,10 @@ abstract class BaseRepository {
 
     /**
      * http 请求并发送数据,使用如下
-        get()
-           .showLoading(true)
-           .showToast(true)
-           .url("https://wanandroid.com/wxarticle/chapters/json")
+    get()
+    .showLoading(true)
+    .showToast(true)
+    .url("https://wanandroid.com/wxarticle/chapters/json")
      *
      * @param T  http data 泛型
      * @param block 此作用域用于设置请求的信息
@@ -104,8 +117,8 @@ abstract class BaseRepository {
     protected suspend inline fun <reified T> LiveDataScope<T>.httpEmitData(block: RequestParam.() -> Unit) {
         val params = RequestParam()
         block(params)
-        if(params.isShowLoading){
-            viewModel.stateLiveData.postValue(StateActionEvent.LoadingState)
+        if (params.isShowLoading) {
+            requestLoading.invoke()
         }
         val result = when (params.method) {
             RequestMethod.GET -> withContext(Dispatchers.IO) {
@@ -146,17 +159,17 @@ abstract class BaseRepository {
         requestParam: RequestParam, scope: LiveDataScope<T>
     ) {
         if (value == null) {
-            viewModel.stateLiveData.postValue(StateActionEvent.NetErrorState)
+            requestNetWorkError.invoke()
         } else {
             when (value.statusCode) {
                 in 400..500 -> {
-                    viewModel.stateLiveData.postValue(StateActionEvent.DataErrorState)
+                    requestDataError.invoke()
                     if (requestParam.isShowToast) {
                         toast(value.message)
                     }
                 }
                 in 200..300 -> {
-                    viewModel.stateLiveData.postValue(StateActionEvent.SuccessState)
+                    requestSuccess.invoke()
                     scope.emit(value.data)
                 }
             }

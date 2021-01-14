@@ -13,7 +13,6 @@ import com.jansir.test.model.main.dto.ChapterDTO
 class MainRepository : BaseRepository() {
 
 
-
     fun testReq(message: MutableLiveData<String>): LiveData<List<ChapterDTO>> {
         return message.switchMap { te ->
             liveData<List<ChapterDTO>> {
