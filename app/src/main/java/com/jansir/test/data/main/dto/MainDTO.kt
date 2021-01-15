@@ -1,4 +1,4 @@
-package com.jansir.test.model.main.dto
+package com.jansir.test.data.main.dto
 
 /**
  * 包名:com.jansir.test.model.main.entity
