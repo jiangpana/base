@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'android-aspectjx' //引用aspectjx插件
+
 
 android {
 
@@ -108,6 +110,10 @@ dependencies {
     //viewmodel hilt
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+
+    //XAOP
+    api 'com.github.xuexiangjys.XAOP:xaop-runtime:1.1.0'
+
 }
 
 apply plugin: 'com.github.dcendents.android-maven'

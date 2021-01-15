@@ -6,12 +6,12 @@ import android.os.Looper
 import android.util.Log
 import androidx.startup.Initializer
 import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.tencent.mmkv.MMKV
 import com.wanjian.cockroach.Cockroach
 import com.wanjian.cockroach.ExceptionHandler
+import com.xuexiang.xaop.XAOP
 import com.xuexiang.xui.XUI
 
 
@@ -31,6 +31,7 @@ class CoreInitializer : Initializer<Unit> {
             .tag("jansir")
             .build();
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
+        XAOP.init(context)
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {

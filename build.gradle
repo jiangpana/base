@@ -23,6 +23,7 @@ buildscript {
         // in the individual module build.gradle files
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.28-alpha'
 
+        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
     }
 }
 
