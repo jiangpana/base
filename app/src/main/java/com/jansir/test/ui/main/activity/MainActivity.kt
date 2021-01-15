@@ -24,7 +24,6 @@ class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>() {
     override fun initListener() {
         binding.tvTest.click {
             viewModel.test()
-
         }
     }
 

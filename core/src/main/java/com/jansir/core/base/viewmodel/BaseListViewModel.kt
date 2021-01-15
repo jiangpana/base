@@ -9,17 +9,19 @@ import androidx.lifecycle.MutableLiveData
  *
  * 用于分页的base viewModel
  */
-abstract class BaseListViewModel<T :BaseRepository> : BaseViewModel<T>() {
+abstract class BaseListViewModel<T : BaseRepository> : BaseViewModel<T>() {
 
     class PageInfo {
 
         //第几页
         @Volatile
         var page = 1
+
         @Synchronized
         fun nextPage() {
             page++
         }
+
         fun reset() {
             page = 1
         }
@@ -38,7 +40,7 @@ abstract class BaseListViewModel<T :BaseRepository> : BaseViewModel<T>() {
 
 
     abstract fun loadMore()
-    abstract fun getFirstData()
+    abstract fun requestFirstData()
 
     sealed class LoadMoreState {
         object HAS_MORE : LoadMoreState()

@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.jansir.core.base.dialog.LoadingDialog
-import com.jansir.core.base.viewmodel.*
+import com.jansir.core.base.viewmodel.BaseViewModel
+import com.jansir.core.base.viewmodel.StateActionEvent
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
 
 /**
@@ -15,22 +16,19 @@ import com.jansir.core.ext.findClazzFromSuperclassGeneric
  * date: 2019/9/2.
  */
 
-abstract class BaseVMFragment<VM : BaseViewModel<*>,VB:ViewBinding> : BaseFragment<VB>() {
+abstract class BaseVMFragment<VM : BaseViewModel<*>, VB : ViewBinding> : BaseFragment<VB>() {
 
     protected val viewModel: VM by lazy {
         getVM()
     }
 
-
-
     private fun getVM(): VM {
-        return ViewModelProvider(this@BaseVMFragment).get(findClazzFromSuperclassGeneric(ViewModel::class.java) as Class<VM>)
+        return ViewModelProvider(mActivity).get(findClazzFromSuperclassGeneric(ViewModel::class.java) as Class<VM>)
     }
 
-    private var loading: LoadingDialog? = null
-
-
-    private var mIsHasData = false//是否加载过数据
+    private val loading: LoadingDialog by lazy {
+        LoadingDialog.newInstance()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +40,11 @@ abstract class BaseVMFragment<VM : BaseViewModel<*>,VB:ViewBinding> : BaseFragme
             baseViewModel.stateLiveData.observe(this, Observer { stateActionState ->
                 when (stateActionState) {
                     StateActionEvent.LoadingState -> showLoading()
-                    StateActionEvent.SuccessState ->{
+                    StateActionEvent.SuccessState -> {
                         showContentView()
                         dismissLoading()
                     }
-                    StateActionEvent.DataErrorState ->{
+                    StateActionEvent.DataErrorState -> {
                         dismissLoading()
                         handleDataError()
                     }
@@ -68,28 +66,25 @@ abstract class BaseVMFragment<VM : BaseViewModel<*>,VB:ViewBinding> : BaseFragme
     abstract fun initData()
 
     open fun showLoading() {
-        if (loading == null) {
-            loading = LoadingDialog.getInstance()
-        }
-        loading?.show(activity?.supportFragmentManager!!, "loading")
+        loading.show(mActivity.supportFragmentManager, "loading")
     }
 
     open fun dismissLoading() {
-        loading?.dismiss()
+        loading.dismiss()
     }
 
-    fun showContentView() {
-        baseBinding.mStatusView.showContent()
+    private fun showContentView() {
+        activityBaseBinding.statusViewBase.showContent()
     }
 
     open fun handleNetWorkError() {
-        if(isShowNoNetView) baseBinding.mStatusView.showNoNetwork()
+        if (isShowNoNetView) activityBaseBinding.statusViewBase.showNoNetwork()
     }
 
     open fun handleDataError() {
-       if(isShowNoDataView){
-           baseBinding.mStatusView.showError()
-       }
+        if (isShowNoDataView) {
+            activityBaseBinding.statusViewBase.showError()
+        }
     }
 
     protected open val isShowNoDataView: Boolean

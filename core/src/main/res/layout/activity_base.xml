@@ -4,30 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <com.xuexiang.xui.widget.actionbar.TitleBar
-        android:id="@+id/mTitleBarBase"
-        android:visibility="gone"
+        android:id="@+id/titleBarBase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        app:tb_barHeight="65dp"
-        app:tb_leftImageResource="@mipmap/nav_btn_back"
-        app:tb_immersive="true"
+        android:visibility="gone"
+        app:tb_actionPadding="20dp"
         app:tb_actionTextColor="@color/text_333333"
         app:tb_actionTextSize="16sp"
-        app:tb_sideTextPadding="20dp"
-        app:tb_actionPadding="20dp"
-        app:titleColor="@color/text_333333"
-        app:tb_titleTextSize="20sp"
+        app:tb_barHeight="65dp"
         app:tb_dividerColor="@color/bgColor_f7f7f7"
         app:tb_dividerHeight="1dp"
+        app:tb_immersive="true"
+        app:tb_leftImageResource="@mipmap/nav_btn_back"
+        app:tb_sideTextPadding="20dp"
+        app:tb_titleTextSize="20sp"
+        app:titleColor="@color/text_333333"
 
         />
 
     <com.xuexiang.xui.widget.statelayout.MultipleStatusView
-        android:id="@+id/mStatusView"
+        android:id="@+id/statusViewBase"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:msv_contentView="@layout/layout_base_content_view"
-        app:msv_noNetworkView="@layout/msv_layout_base_no_network_view"/>
+        app:msv_noNetworkView="@layout/msv_layout_base_no_network_view" />
 </LinearLayout>

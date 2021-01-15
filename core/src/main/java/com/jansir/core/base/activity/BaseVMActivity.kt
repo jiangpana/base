@@ -26,7 +26,9 @@ abstract class BaseVMActivity<VB : ViewBinding, VM : BaseViewModel<*>> : BaseAct
     }
 
 
-    private var loading: LoadingDialog? = null
+    private val loading: LoadingDialog by lazy {
+        LoadingDialog.newInstance()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,28 +61,25 @@ abstract class BaseVMActivity<VB : ViewBinding, VM : BaseViewModel<*>> : BaseAct
 
 
     private fun showContentView() {
-        baseBinding.mStatusView.showContent()
+        activityBaseBinding.statusViewBase.showContent()
     }
 
 
     open fun showLoading() {
-        if (loading == null) {
-            loading = LoadingDialog.getInstance()
-        }
-        loading?.show(supportFragmentManager, "loading")
+        loading.show(supportFragmentManager, "loading")
     }
 
     open fun dismissLoading() {
-        loading?.dismiss()
+        loading.dismiss()
     }
 
     open fun handleNetWorkError() {
-        if (isShowNoNetView) baseBinding.mStatusView.showNoNetwork()
+        if (isShowNoNetView) activityBaseBinding.statusViewBase.showNoNetwork()
     }
 
     open fun handleDataError() {
         if (isShowNoDataView) {
-            baseBinding.mStatusView.showError()
+            activityBaseBinding.statusViewBase.showError()
         }
     }
 

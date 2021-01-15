@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.viewbinding.ViewBinding
-
 import com.jansir.core.R
 import com.jansir.core.databinding.ActivityBaseBinding
 import com.jansir.core.ext.findClazzFromSuperclassGeneric
 import com.jansir.core.ext.inflateBinding
-import com.xuexiang.xui.widget.statelayout.MultipleStatusView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import me.yokeyword.fragmentation.SupportActivity
@@ -26,18 +24,21 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  */
 abstract class BaseFragment<VB : ViewBinding> : SupportFragment(), CoroutineScope by MainScope() {
 
-    lateinit var mActivity: SupportActivity
-    protected lateinit var baseBinding :ActivityBaseBinding
+    protected lateinit var mActivity: SupportActivity
+    protected lateinit var activityBaseBinding: ActivityBaseBinding
     protected lateinit var binding: VB
     protected abstract fun initView()
     protected abstract fun initListener()
 
-    // true -> 使用基础标题栏
+    /**
+     * if true use TitleBar
+     */
     protected open val isUseBaseTitleBar: Boolean
         get() = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         mActivity = activity as SupportActivity
     }
 
@@ -46,12 +47,15 @@ abstract class BaseFragment<VB : ViewBinding> : SupportFragment(), CoroutineScop
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        baseBinding = inflateBinding(inflater)
-        binding = inflateBinding(findClazzFromSuperclassGeneric(ViewBinding::class.java) as Class<VB>,layoutInflater)
-        baseBinding.apply {
-            root.findViewById<FrameLayout>(R.id.fl_base_container)
+        activityBaseBinding = inflateBinding(inflater)
+        binding = inflateBinding(
+            findClazzFromSuperclassGeneric(ViewBinding::class.java) as Class<VB>,
+            layoutInflater
+        )
+        activityBaseBinding.apply {
+            root.findViewById<FrameLayout>(R.id.flContainer)
                 .addView(binding.root)
-            mStatusView.apply {
+            statusViewBase.apply {
                 showContent()
                 setOnRetryClickListener {
                     retry()
@@ -59,7 +63,7 @@ abstract class BaseFragment<VB : ViewBinding> : SupportFragment(), CoroutineScop
             }
         }
 
-        return baseBinding.root
+        return activityBaseBinding.root
 
     }
 
@@ -80,10 +84,5 @@ abstract class BaseFragment<VB : ViewBinding> : SupportFragment(), CoroutineScop
         super.onDestroy()
 
     }
-
-
-    //覆盖此方法获取布局 id
-    protected open val layoutId: Int
-        get() = 0
 
 }

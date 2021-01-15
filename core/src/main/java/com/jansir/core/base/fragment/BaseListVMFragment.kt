@@ -1,14 +1,11 @@
 package com.jansir.core.base.fragment
 
-import android.view.View
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.viewbinding.ViewBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.jansir.core.R
 import com.jansir.core.base.viewmodel.BaseListViewModel
-import kotlinx.android.synthetic.main.activity_base_refresh_list.*
+import com.jansir.core.databinding.LayoutBaseEmptyDataBinding
 
 
 /**
@@ -17,26 +14,30 @@ import kotlinx.android.synthetic.main.activity_base_refresh_list.*
  * date: 2020/5/6.
  */
 
-abstract class BaseListVMFragment<VM : BaseListViewModel<*>,VB:ViewBinding>() : BaseVMFragment<VM,VB>() {
+abstract class BaseListVMFragment<VM : BaseListViewModel<*>>() :
+    BaseVMFragment<VM, com.jansir.core.databinding.ActivityBaseRefreshListBinding>() {
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
+    private val recyclerView: RecyclerView by lazy {
+        binding.rvBase
+    }
+    private val swipeRefreshLayout: SwipeRefreshLayout by lazy {
+        binding.slBase
+    }
 
     override fun initView() {
-        this.recyclerView = rv_base
-        swipeRefreshLayout = sl_base
-        initRvAndAdapter()
+        initRecyclerViewAdapter()
     }
 
     override fun initData() {
         refresh()
     }
 
-    private fun initRvAndAdapter() {
+    private fun initRecyclerViewAdapter() {
         provideAdapter().apply {
             setHasStableIds(true)
-            setEmptyView(View.inflate(activity, R.layout.layout_base_empty_data, null))
-            loadMoreModule.setOnLoadMoreListener {loadMore()}
+            setEmptyView(LayoutBaseEmptyDataBinding.inflate(layoutInflater).root)
+            loadMoreModule.setOnLoadMoreListener { loadMore() }
             loadMoreModule.isAutoLoadMore = true
             //当自动加载开启，同时数据不满一屏时，是否继续执行自动加载更多(默认为true)
             loadMoreModule.isEnableLoadMoreIfNotFullPage = false
@@ -57,10 +58,9 @@ abstract class BaseListVMFragment<VM : BaseListViewModel<*>,VB:ViewBinding>() : 
     override fun startObserve() {
         super.startObserve()
         viewModel.loadMoreState.observe(this) { data ->
-            provideAdapter().loadMoreModule.isEnableLoadMore=true
+            provideAdapter().loadMoreModule.isEnableLoadMore = true
             when (data) {
                 BaseListViewModel.LoadMoreState.HAS_MORE -> {
-
                     provideAdapter().loadMoreModule.loadMoreComplete()
                 }
                 BaseListViewModel.LoadMoreState.NO_MORE -> {
@@ -82,7 +82,10 @@ abstract class BaseListVMFragment<VM : BaseListViewModel<*>,VB:ViewBinding>() : 
         }
     }
 
-    //上拉刷新
+    /**
+     * TODO
+     * 刷新
+     */
     @Synchronized
     protected open fun refresh() {
         swipeRefreshLayout.isRefreshing = true
@@ -90,24 +93,20 @@ abstract class BaseListVMFragment<VM : BaseListViewModel<*>,VB:ViewBinding>() : 
         provideAdapter().loadMoreModule.isEnableLoadMore = false
         // 下拉刷新，需要重置页数
         viewModel.pageInfo.reset()
-        viewModel.getFirstData()
+        viewModel.requestFirstData()
     }
 
     /**
+     * TODO
      * 加载更多
      */
-   open protected fun loadMore() {
-        swipeRefreshLayout.isEnabled=false
+    protected open fun loadMore() {
+        swipeRefreshLayout.isEnabled = false
         viewModel.loadMore()
     }
 
 
-
-    override val layoutId: Int
-        get() = R.layout.activity_base_refresh_list
-
     abstract fun provideLayoutManager(): RecyclerView.LayoutManager
-
     abstract fun provideAdapter(): BaseQuickAdapter<*, *>
 
 }

@@ -12,7 +12,7 @@ import com.jansir.core.R
  */
 class LoadingDialog : DialogFragment() {
     companion object {
-        fun getInstance(): LoadingDialog = LoadingDialog()
+        fun newInstance(): LoadingDialog = LoadingDialog()
     }
 
     override fun onStart() {

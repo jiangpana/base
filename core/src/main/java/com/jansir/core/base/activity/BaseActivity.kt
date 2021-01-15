@@ -32,7 +32,7 @@ import java.lang.ref.WeakReference
 abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
     CoroutineScope by MainScope() {
 
-    protected val baseBinding by inflateLazyVB<ActivityBaseBinding>()
+    protected val activityBaseBinding by inflateLazyVB<ActivityBaseBinding>()
     protected lateinit var binding: VB
 
     // true -> 状态栏黑色图标
@@ -48,23 +48,23 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
         ScreenAdapterUtil.adapterScreen(this, 640, true)
         StatusBarUtil.setTranslucentStatus(this)
         StatusBarAdapterUtil.adaptive(WeakReference(this))
-        setContentView(baseBinding.root)
+        setContentView(activityBaseBinding.root)
         binding = inflateBinding(
             findClazzFromSuperclassGeneric(ViewBinding::class.java) as Class<VB>,
             layoutInflater
         )
-        baseBinding.root.findViewById<FrameLayout>(R.id.fl_base_container)
+        activityBaseBinding.root.findViewById<FrameLayout>(R.id.flContainer)
             .addView(binding.root)
 
         if (isUseBaseTitleBar) {
-            baseBinding.mTitleBarBase.apply {
+            activityBaseBinding.titleBarBase.apply {
                 visibility = View.VISIBLE
                 setLeftClickListener { finish() }
                 setTitleColor(resources.getColor(R.color.text_333333))
                 setBackgroundColor(Color.WHITE)
             }
         }
-        baseBinding.mStatusView.apply {
+        activityBaseBinding.statusViewBase.apply {
             showContent()
             setOnRetryClickListener {
                 retry()
@@ -83,7 +83,7 @@ abstract class BaseActivity<VB : ViewBinding> : SupportActivity(),
     abstract fun initData()
 
     protected fun setTitleText(@StringRes stringId: Int) {
-        if (isUseBaseTitleBar) baseBinding.mTitleBarBase.setTitle(stringId)
+        if (isUseBaseTitleBar) activityBaseBinding.titleBarBase.setTitle(stringId)
     }
 
     /**

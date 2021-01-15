@@ -15,6 +15,7 @@
                 android:name="com.jansir.core.CoreInitializer"
                 android:value="androidx.startup" />
         </provider>
+        <activity android:name=".base.activity.ImageBrowseActivity" />
     </application>
 
 </manifest>

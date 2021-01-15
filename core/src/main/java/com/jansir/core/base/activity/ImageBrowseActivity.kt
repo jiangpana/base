@@ -24,45 +24,49 @@ class ImageBrowseActivity : BaseActivity<ActivityBaseImageBrowseBinding>() {
 
 
     companion object {
-        val EXTRA_IMAGE_PATH = "image_path"
-        val EXTRA_IMAGE_LIST = "image_list"
+        const val EXTRA_IMAGE_PATH = "image_path"
+        const val EXTRA_IMAGE_LIST = "image_list"
     }
-
 
     override val isUseBaseTitleBar: Boolean
         get() = false
 
+    private val imagePath by lazy {
+        getExtraString(EXTRA_IMAGE_PATH)
+    }
+    private val imageList by lazy {
+        getExtraStringList(EXTRA_IMAGE_LIST)
+    }
 
     override fun initView() {
-        imagePath = getExtraString(EXTRA_IMAGE_PATH);
-        imageList = getExtraStringList((EXTRA_IMAGE_LIST))
         //设置全屏
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        StatusBarUtil.setTranslucentStatus(this);
+        StatusBarUtil.setTranslucentStatus(this)
         StatusBarUtil.setRootViewFitsSystemWindows(this, false);
-        imagePath?.apply {
-            if (contains("gif")) {
-                loadGif();
-            } else {
-                loadImage()
-            }
-        }
-
     }
 
     override fun initListener() {
+
     }
 
-    private var imagePath: String? = ""
-    private var imageList: ArrayList<String>? = null
-    private var imagePosition = 0
+    override fun initData() {
+        imagePath?.apply {
+            if (contains("gif")) {
+                displayGif();
+            } else {
+                displayImage()
+            }
+        }
+    }
 
-
-    //加载gif图片
-    private fun loadGif() {
+    /**
+     *
+     * 加载gif图片
+     */
+    private fun displayGif() {
         Glide.with(this@ImageBrowseActivity)
             .load(imagePath)
             .apply(RequestOptions().fitCenter().diskCacheStrategy(DiskCacheStrategy.RESOURCE))
@@ -81,7 +85,7 @@ class ImageBrowseActivity : BaseActivity<ActivityBaseImageBrowseBinding>() {
     }
 
     //加载图片
-    private fun loadImage() {
+    private fun displayImage() {
         Glide.with(this@ImageBrowseActivity)
             .load(imagePath)
             .apply(RequestOptions().fitCenter())
@@ -93,12 +97,9 @@ class ImageBrowseActivity : BaseActivity<ActivityBaseImageBrowseBinding>() {
                     super.onResourceReady(resource, transition)
                     binding.pvImage.setImageDrawable(resource)
                     binding.pb.visibility = View.GONE
-                    binding.pvImage.setOnClickListener({ view -> finish() })
+                    binding.pvImage.setOnClickListener { finish() }
                 }
             })
-    }
-
-    override fun initData() {
     }
 
 
