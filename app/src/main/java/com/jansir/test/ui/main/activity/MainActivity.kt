@@ -10,6 +10,7 @@ import com.jansir.test.databinding.ActivityMainBinding
 import com.jansir.test.ui.main.MyOnClickListenerProxy
 import com.orhanobut.logger.Logger
 
+
 class MainActivity : BaseVMActivity<ActivityMainBinding, MainViewModel>() {
 
 
