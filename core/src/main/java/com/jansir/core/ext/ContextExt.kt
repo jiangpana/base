@@ -1,7 +1,6 @@
 package com.jansir.core.ext
 
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
@@ -264,7 +263,7 @@ fun Activity.hookView(absOnTouch: AbsOnTouchListenerProxy, absOnClick: AbsOnClic
     }
 }
 
-private fun setViewProxy(
+fun setViewProxy(
     viewGroup: ViewGroup,
     absOnTouch: AbsOnTouchListenerProxy,
     absOnClick: AbsOnClickListenerProxy
@@ -280,8 +279,7 @@ private fun setViewProxy(
     }
 }
 
-@SuppressLint("PrivateApi", "DiscouragedPrivateApi")
-private fun hook(
+fun hook(
     view: View,
     absOnTouch: AbsOnTouchListenerProxy,
     absOnClick: AbsOnClickListenerProxy
@@ -309,11 +307,9 @@ private fun hook(
     }
 }
 
-abstract class AbsOnTouchListenerProxy : View.OnTouchListener {
+abstract class AbsOnTouchListenerProxy : View.OnTouchListener
 
-}
-
-abstract class AbsOnClickListenerProxy() : View.OnClickListener {
+abstract class AbsOnClickListenerProxy : View.OnClickListener {
 
     private var clickListener: View.OnClickListener? = null
     fun setOriginOnClickListener(onClickListener: View.OnClickListener?) {
@@ -325,7 +321,7 @@ abstract class AbsOnClickListenerProxy() : View.OnClickListener {
     }
 }
 
-class ScaleTouchListenerProxy : AbsOnTouchListenerProxy() {
+open class ScaleTouchListenerProxy : AbsOnTouchListenerProxy() {
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -359,7 +355,7 @@ fun Context.getMetaData(key: String): String {
 
 //******************* 获取屏幕物理尺寸  *******************//
 fun Context.getScreenSizeOfDevice(show: () -> Unit, hide: () -> Unit) {
-    val dm = getResources().getDisplayMetrics();
+    val dm = resources.displayMetrics
     val width = dm.widthPixels
     val height = dm.heightPixels
     val x = Math.pow(width.toDouble(), 2.0)
@@ -395,9 +391,9 @@ fun Context.getAssetsText256AesDecrypt(aesKey: String, aesIv: String, name: Stri
         val string = AES256Util.decrypt(aesKey, aesIv, Base64.decode(bytes, Base64.NO_WRAP))
         return String(string)
     } catch (e: Exception) {
-        e.printStackTrace();
+        e.printStackTrace()
     }
-    return "";
+    return ""
 }
 
 fun Context.getAssetsText(name: String): String {
@@ -411,7 +407,7 @@ fun Context.getAssetsText(name: String): String {
         val string = String(bytes)
         return string
     } catch (e: Exception) {
-        e.printStackTrace();
+        e.printStackTrace()
     }
-    return "";
+    return ""
 }

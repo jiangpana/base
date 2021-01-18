@@ -2,8 +2,6 @@ package com.jansir.core
 
 import org.junit.Test
 
-import org.junit.Assert.*
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -12,6 +10,13 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val result = Array(10) { row ->
+            Array(8) { col ->
+                "null"
+            }
+        }
+
+        println(result[0][3]) // Prints: the String at position 0, 3
     }
+
 }

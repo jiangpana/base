@@ -32,6 +32,7 @@ class CoreInitializer : Initializer<Unit> {
             .build();
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
         XAOP.init(context)
+    
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
