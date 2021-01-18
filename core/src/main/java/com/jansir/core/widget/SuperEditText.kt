@@ -5,11 +5,11 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.jansir.core.R
+import com.jansir.core.databinding.LayoutSuperEdittextBinding
 import com.jansir.core.ext.appendColorSpan
 import com.jansir.core.ext.dp2px
 import com.jansir.core.ext.invisible
 import com.jansir.core.ext.visible
-import kotlinx.android.synthetic.main.layout_super_edittext.view.*
 
 
 /**
@@ -23,6 +23,7 @@ class SuperEditText @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attributeSet, defStyleAttr) {
 
+    lateinit var binding: LayoutSuperEdittextBinding
     var mEditTextHeight = dp2px(40f)
     var mTitleText = ""
     var mHintText = ""
@@ -37,31 +38,31 @@ class SuperEditText @JvmOverloads constructor(
         isBottomText = ta.getBoolean(R.styleable.SuperEditText_set_isBottomText, false)
         isPassword = ta.getBoolean(R.styleable.SuperEditText_set_isPassword, false)
         ta.recycle()
-        inflate(context, R.layout.layout_super_edittext, this)
+        binding = LayoutSuperEdittextBinding.bind(this)
         applyAttr()
     }
 
     private fun applyAttr() {
         if (mTitleText == "") {
-            tv.invisible()
+            binding.tv.invisible()
         } else {
-            tv.text = mTitleText
-            tv.appendColorSpan("*", Color.parseColor("#FF0000"))
+            binding.tv.text = mTitleText
+            binding.tv.appendColorSpan("*", Color.parseColor("#FF0000"))
 
         }
         if (isBottomText) {
-            tvBottom.apply {
+            binding.tvBottom.apply {
                 text = mHintText
                 visible()
             }
         } else {
             if (isPassword) {
-                mEditPassword.apply {
+                binding.mEditPassword.apply {
                     visible()
                     clearFocus()
                 }
             } else {
-                mEdit.apply {
+                binding.mEdit.apply {
                     visible()
                     clearFocus()
                     hint = mHintText
